@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="Adrian Vasquez Perez" />
+<title>Ejercicio de selectores</title>
+<style>
+  /* Color del texto según la fila (clase = nombre del color) */
+  .teal    td { color: teal; }
+  .red     td { color: red; }
+  .blue    td { color: blue; }
+  .orange  td { color: orange; }
+  .purple  td { color: purple; }
+  .olive   td { color: olive; }
+  .fuchsia td { color: fuchsia; }
+  .green   td { color: green; }
+
+  /* Color de fondo según la columna (nth-child) */
+  td:nth-child(2) { background-color: red; }
+  td:nth-child(3) { background-color: green; }
+  td:nth-child(4) { background-color: blue; }
+</style>
+</head>
+<body>
+<table border="1">
+  <tr class="teal">   <td>teal</td>   <td>teal</td>   <td>teal</td>   <td>teal</td>   </tr>
+  <tr class="red">    <td>red</td>    <td>red</td>    <td>red</td>    <td>red</td>    </tr>
+  <tr class="blue">   <td>blue</td>   <td>blue</td>   <td>blue</td>   <td>blue</td>   </tr>
+  <tr class="orange"> <td>orange</td> <td>orange</td> <td>orange</td> <td>orange</td> </tr>
+  <tr class="purple"> <td>purple</td> <td>purple</td> <td>purple</td> <td>purple</td> </tr>
+  <tr class="olive">  <td>olive</td>  <td>olive</td>  <td>olive</td>  <td>olive</td>  </tr>
+  <tr class="fuchsia"><td>fuchsia</td><td>fuchsia</td><td>fuchsia</td><td>fuchsia</td></tr>
+  <tr class="green">  <td>green</td>  <td>green</td>  <td>green</td>  <td>green</td>  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Adrian Vasquez Perez">
+  <title>Ejercicios JS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Ejercicios.css">
+</head>
+<body>
+
+  <div class="encabezado">
+    <h1>Ejercicios JS</h1>
+    <p>JavaScript · Algoritmos interactivos</p>
+  </div>
+
+  <div class="ejercicios">
+
+    <div class="tarjeta">
+      <div class="tarjeta-encabezado">
+        <span class="tarjeta-num num-1">Ejercicio 01</span>
+        <span class="tarjeta-titulo">Operaciones con dígitos de un número de 8 cifras</span>
+      </div>
+      <div class="tarjeta-cuerpo">
+
+        <div class="contenedor-entrada-digitos">
+          <label>Ingresa un número de exactamente 8 dígitos</label>
+          <input type="text" id="entradaNumero" maxlength="8" placeholder="12345678"
+                 oninput="procesarNumero(this.value)">
+          <div class="mensaje-error" id="errorNumero"></div>
+        </div>
+
+        <div class="vista-digitos" id="vistaDigitos">
+          <div class="caja-digito"><span class="posicion">1</span>—</div>
+          <div class="caja-digito"><span class="posicion">2</span>—</div>
+          <div class="caja-digito"><span class="posicion">3</span>—</div>
+          <div class="caja-digito"><span class="posicion">4</span>—</div>
+          <div class="caja-digito"><span class="posicion">5</span>—</div>
+          <div class="caja-digito"><span class="posicion">6</span>—</div>
+          <div class="caja-digito"><span class="posicion">7</span>—</div>
+          <div class="caja-digito"><span class="posicion">8</span>—</div>
+        </div>
+
+        <div class="cuadricula-resultados">
+          <div class="item-resultado r-suma" id="r-suma">
+            <div class="etiqueta-resultado">A · Suma del centro</div>
+            <div class="valor-resultado" id="v-suma">—</div>
+            <div class="formula-resultado" id="f-suma">d4 + d5</div>
+          </div>
+          <div class="item-resultado r-multiplicacion" id="r-multiplicacion">
+            <div class="etiqueta-resultado">B · Multiplicación extremos</div>
+            <div class="valor-resultado" id="v-multiplicacion">—</div>
+            <div class="formula-resultado" id="f-multiplicacion">d1 × d8</div>
+          </div>
+          <div class="item-resultado r-resta" id="r-resta">
+            <div class="etiqueta-resultado">C · Resta d7 − d2</div>
+            <div class="valor-resultado" id="v-resta">—</div>
+            <div class="formula-resultado" id="f-resta">d7 − d2</div>
+          </div>
+          <div class="item-resultado r-potencia" id="r-potencia">
+            <div class="etiqueta-resultado">D · Potencia d3 ^ d6</div>
+            <div class="valor-resultado" id="v-potencia">—</div>
+            <div class="formula-resultado" id="f-potencia">d3 ^ d6</div>
+          </div>
+        </div>
+
+        <button class="boton"
+          onclick="document.getElementById('entradaNumero').value='12345678'; procesarNumero('12345678')">
+          ▶ Cargar ejemplo (12345678)
+        </button>
+
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-encabezado">
+        <span class="tarjeta-num num-2">Ejercicio 02</span>
+        <span class="tarjeta-titulo">Conversor de Temperatura</span>
+      </div>
+      <div class="tarjeta-cuerpo">
+
+        <div class="distribucion-temperatura">
+          <div class="escala-temperatura celsius">
+            <div class="simbolo-escala">°C</div>
+            <div class="nombre-escala">Celsius</div>
+            <input class="entrada-escala" id="t-celsius" type="number" placeholder="0"
+                   oninput="convertirTemperatura('celsius', this.value)">
+            <div class="mostrar-escala" id="td-celsius"></div>
+          </div>
+          <div class="escala-temperatura kelvin">
+            <div class="simbolo-escala">K</div>
+            <div class="nombre-escala">Kelvin</div>
+            <input class="entrada-escala" id="t-kelvin" type="number" placeholder="273.15"
+                   oninput="convertirTemperatura('kelvin', this.value)">
+            <div class="mostrar-escala" id="td-kelvin"></div>
+          </div>
+          <div class="escala-temperatura fahrenheit">
+            <div class="simbolo-escala">°F</div>
+            <div class="nombre-escala">Fahrenheit</div>
+            <input class="entrada-escala" id="t-fahrenheit" type="number" placeholder="32"
+                   oninput="convertirTemperatura('fahrenheit', this.value)">
+            <div class="mostrar-escala" id="td-fahrenheit"></div>
+          </div>
+        </div>
+
+        <div class="nota-formula-temperatura">
+          <b>Fórmulas:</b><br>
+          °F = (°C × 9/5) + 32 &nbsp;|&nbsp;
+          K = °C + 273.15 &nbsp;|&nbsp;
+          °C = (°F − 32) × 5/9 &nbsp;|&nbsp;
+          °C = K − 273.15
+        </div>
+
+        <button class="boton" onclick="convertirTemperatura('celsius','100')">
+          ▶ Ejemplo: 100°C (agua hirviendo)
+        </button>
+
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="tarjeta-encabezado">
+        <span class="tarjeta-num num-3">Ejercicio 03</span>
+        <span class="tarjeta-titulo">Conversor de Longitud</span>
+      </div>
+      <div class="tarjeta-cuerpo">
+
+        <div class="distribucion-longitud">
+          <div class="unidad-longitud km">
+            <div class="abreviatura-unidad">km</div>
+            <div class="nombre-unidad">Kilómetros</div>
+            <input class="entrada-unidad" id="l-km" type="number" placeholder="1"
+                   oninput="convertirLongitud('km', this.value)">
+            <div class="mostrar-unidad" id="ld-km"></div>
+          </div>
+          <div class="unidad-longitud mi">
+            <div class="abreviatura-unidad">mi</div>
+            <div class="nombre-unidad">Millas</div>
+            <input class="entrada-unidad" id="l-mi" type="number" placeholder="1"
+                   oninput="convertirLongitud('mi', this.value)">
+            <div class="mostrar-unidad" id="ld-mi"></div>
+          </div>
+          <div class="unidad-longitud mt">
+            <div class="abreviatura-unidad">m</div>
+            <div class="nombre-unidad">Metros</div>
+            <input class="entrada-unidad" id="l-mt" type="number" placeholder="1000"
+                   oninput="convertirLongitud('mt', this.value)">
+            <div class="mostrar-unidad" id="ld-mt"></div>
+          </div>
+        </div>
+
+        <div class="nota-formula-longitud">
+          <b>Conversiones:</b><br>
+          1 km = 0.621371 mi = 1,000 m &nbsp;|&nbsp;
+          1 mi = 1.60934 km = 1,609.34 m &nbsp;|&nbsp;
+          1 m = 0.001 km = 0.000621371 mi
+        </div>
+
+        <button class="boton" onclick="convertirLongitud('mi','1')">
+          ▶ Ejemplo: 1 Milla
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="Ejercicios.js"></script>
+</body>
+</html>

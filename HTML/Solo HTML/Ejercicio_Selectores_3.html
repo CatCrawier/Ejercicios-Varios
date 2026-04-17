@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Adrian Vasquez Perez" />
+    <title>Ejercicio de selectores</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 120px;
+        }
+
+        a {
+            display: block;
+            padding: 4px 8px;
+            background-color: navy;
+        }
+
+        /* Estado normal: rojo sin subrayado */
+        a:link {
+            color: red;
+            text-decoration: none;
+        }
+
+        /* Enlace visitado: verde oscuro sin subrayado */
+        a:visited {
+            color: darkgreen;
+            text-decoration: none;
+        }
+
+        /* Enlace con foco de teclado: azul con subrayado */
+        a:focus {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        /* Cursor encima: texto blanco sobre fondo rojo, con subrayado */
+        a:hover {
+            color: white;
+            background-color: red;
+            text-decoration: underline;
+        }
+
+        /* Enlace activo: naranja sin subrayado */
+        a:active {
+            color: orange;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cesde - Centro de Estudios Especializados</h1>
+    <ul>
+        <li><a href="presentacion.html">Presentación</a></li>
+        <li><a href="estudios.html">Estudios</a></li>
+        <li><a href="alumnos.html">Alumnos</a></li>
+        <li><a href="deportes.html">Deportes</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+    </ul>
+</body>
+</html>

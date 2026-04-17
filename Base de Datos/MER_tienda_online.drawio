@@ -1,0 +1,151 @@
+<mxfile host="65bd71144e">
+    <diagram id="ER-TiendaOnline" name="Modelo Entidad-Relación - Tienda Online">
+        <mxGraphModel dx="2108" dy="559" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="MODELO ENTIDAD-RELACIÓN - SISTEMA DE VENTAS TIENDA ONLINE" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="200" y="20" width="800" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="cliente" value="CLIENTE" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="100" y="120" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="cli-id" value="&lt;u&gt;ID_Cliente&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="160" y="60" width="100" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="cli-nom" value="Nombre" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="60" width="90" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="cli-email" value="Email" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="200" width="80" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="cli-dir" value="Dirección" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="-50" y="125" width="90" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-realiza" value="realiza" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="380" y="110" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="link-cr1" value="1" style="endArrow=none;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=14;fontStyle=1" parent="1" source="cliente" target="rel-realiza" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="pedido" value="PEDIDO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="560" y="120" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="link-rp1" value="N" style="endArrow=none;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=14;fontStyle=1" parent="1" source="rel-realiza" target="pedido" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ped-id" value="&lt;u&gt;ID_Pedido&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="200" width="100" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ped-fecha" value="Fecha" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="200" width="80" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="ped-estado" value="Estado" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="740" y="200" width="80" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="producto" value="PRODUCTO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="120" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="prod-id" value="&lt;u&gt;ID_Producto&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="60" width="110" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="prod-nom" value="Nombre" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="1200" y="60" width="90" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="prod-precio" value="Precio" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="1220" y="190" width="80" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="prod-stock" value="Stock" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="120" width="80" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel-contiene" value="contiene" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="840" y="112.5" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="cont-cant" value="Cantidad" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="950" y="190" width="90" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="cont-precio" value="Precio" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="225" width="80" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="link-rc1" value="" style="endArrow=none;html=1;exitX=1;exitY=1;entryX=0.5;entryY=0;exitDx=0;exitDy=0;" parent="1" source="rel-contiene" target="cont-cant" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="link-rc2" value="" style="endArrow=none;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" source="rel-contiene" target="cont-precio" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="link-pc1" value="N" style="endArrow=none;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=14;fontStyle=1;exitDx=0;exitDy=0;" parent="1" source="pedido" target="rel-contiene" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="link-cp1" value="M" style="endArrow=none;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=14;fontStyle=1;entryDx=0;entryDy=0;" parent="1" source="rel-contiene" target="producto" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cli-id" target="cliente">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="220" y="250" as="sourcePoint"/>
+                        <mxPoint x="380" y="250" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="3" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="cli-email" target="cliente">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="220" y="250" as="sourcePoint"/>
+                        <mxPoint x="380" y="250" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cli-dir" target="cliente">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="220" y="250" as="sourcePoint"/>
+                        <mxPoint x="380" y="250" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cli-nom" target="cliente">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="220" y="250" as="sourcePoint"/>
+                        <mxPoint x="380" y="250" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="" style="endArrow=none;html=1;rounded=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pedido" target="ped-estado">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="670" y="290" as="sourcePoint"/>
+                        <mxPoint x="830" y="290" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pedido" target="ped-fecha">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="670" y="290" as="sourcePoint"/>
+                        <mxPoint x="830" y="290" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="" style="endArrow=none;html=1;rounded=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pedido" target="ped-id">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="670" y="290" as="sourcePoint"/>
+                        <mxPoint x="830" y="290" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="9" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="producto" target="prod-precio">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="910" y="170" as="sourcePoint"/>
+                        <mxPoint x="1070" y="170" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="10" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="producto" target="prod-stock">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="920" y="170" as="sourcePoint"/>
+                        <mxPoint x="1080" y="170" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="producto" target="prod-nom">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="910" y="170" as="sourcePoint"/>
+                        <mxPoint x="1070" y="170" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="producto" target="prod-id">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="910" y="170" as="sourcePoint"/>
+                        <mxPoint x="1070" y="170" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
