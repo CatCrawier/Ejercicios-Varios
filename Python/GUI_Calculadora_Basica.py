@@ -1,0 +1,56 @@
+from tkinter import Tk, Label, Button, Entry, PhotoImage
+ventana = Tk()
+icono = PhotoImage(file='ESCUDO_COLOR.png')
+ventana.title("Calculadora Sencilla")
+ventana.geometry("400x200")
+ventana.iconphoto(False, icono)
+
+def suma():
+    n1=txt1.get()
+    n2=txt2.get()
+    r=float(n1)+float(n2)
+    txt3.delete(0, 'end')
+    txt3.insert(0, r)
+
+def resta():
+    n1=txt1.get()
+    n2=txt2.get()
+    r=float(n1)-float(n2)
+    txt3.delete(0, 'end')
+    txt3.insert(0, r)
+
+def multiplicacion():
+    n1=txt1.get()
+    n2=txt2.get()
+    r=float(n1)*float(n2)
+    txt3.delete(0, 'end')
+    txt3.insert(0, r)
+
+def division():
+    n1=txt1.get()
+    n2=txt2.get()
+    r=float(n1)/float(n2)
+    txt3.delete(0, 'end')
+    txt3.insert(0, r)
+
+label1 = Label(ventana, text="Número 1:", bg="black", fg="white")
+label1.place(x=10, y=10, width=100, height=30)
+txt1 = Entry(ventana, bg="white", fg="black")
+txt1.place(x=120, y=10, width=100, height=30)
+label2 = Label(ventana, text="Número 2:", bg="black", fg="white")
+label2.place(x=10, y=60, width=100, height=30)
+txt2 = Entry(ventana, bg="white", fg="black")
+txt2.place(x=120, y=60, width=100, height=30)
+boton1 = Button(ventana, text="Sumar", bg="black", fg="white", command=suma)
+boton1.place(x=230, y=60, width=80, height=30)
+boton2 = Button(ventana, text="Restar", bg="black", fg="white", command=resta)
+boton2.place(x=320, y=60, width=80, height=30)
+boton3 = Button(ventana, text="Multiplicar", bg="black", fg="white", command=multiplicacion)
+boton3.place(x=230, y=100, width=80, height=30)
+boton4 = Button(ventana, text="Dividir", bg="black", fg="white", command=division)
+boton4.place(x=320, y=100, width=80, height=30)
+label3 = Label(ventana, text="Resultado:", bg="black", fg="white")
+label3.place(x=10, y=110, width=100, height=30)
+txt3 = Entry(ventana, bg="white", fg="black")
+txt3.place(x=120, y=110, width=100, height=30)
+ventana.mainloop()
