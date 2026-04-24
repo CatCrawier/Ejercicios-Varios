@@ -24,4 +24,17 @@ def calcular_promedio(notas):
         suma += nota
     return suma / len(notas)
 
-print(f"Promedio de las notas de los estudiantes: {calcular_promedio(estudiantes)}")
+todas_las_notas = [nota for estudiante in estudiantes for nota in estudiante["Notas"]]
+print(f"Promedio de las notas de los estudiantes: {calcular_promedio(todas_las_notas):.2f}")
+
+def generar_reporte(estudiantes):
+    """Genera un reporte de las notas de los estudiantes"""
+    print("Reporte de notas de los estudiantes:")
+    for estudiante in estudiantes:
+        suma = sum(estudiante["Notas"])
+        promedio = suma / len(estudiante["Notas"])
+
+        estado = "Aprobado" if promedio >= 3 else "Reprobado"
+        print(f"Estudiante: {estudiante['Nombre']} - Promedio: {promedio:.2f} - Estado: {estado}")
+
+generar_reporte(estudiantes)
