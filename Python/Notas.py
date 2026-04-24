@@ -23,3 +23,5 @@ def generar_reporte(estudiantes):
 
         estado = "Aprobado" if promedio >= 3 else "Reprobado"
         print(f"Estudiante: {estudiante['Nombre']} - Promedio: {promedio:.2f} - Estado: {estado}")
+
+generar_reporte(estudiantes)
