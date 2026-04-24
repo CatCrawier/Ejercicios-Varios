@@ -14,3 +14,12 @@ estudiantes = [
 ]
 
 print(f"Notas de los estudiantes: {len(estudiantes)}")
+
+def generar_reporte(estudiantes):
+    print("Reporte de notas de los estudiantes:")
+    for estudiante in estudiantes:
+        suma = sum(estudiante["Notas"])
+        promedio = suma / len(estudiante["Notas"])
+
+        estado = "Aprobado" if promedio >= 3 else "Reprobado"
+        print(f"Estudiante: {estudiante['Nombre']} - Promedio: {promedio:.2f} - Estado: {estado}")
