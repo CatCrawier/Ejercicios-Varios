@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Adrian Vasquez Perez">
+    <title>Lista de Tareas Responsiva</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="ToDo_List.css">
+</head>
+<body>
+
+    <header class="encabezado-principal">
+        <img src="15db88df0de562a2fa179eae57eae5f2.webp" alt="Logo" class="logo-superior">
+
+        <h1>Lista de Tareas</h1>
+        <form id="formulario" class="contenedor-entrada">
+            <input type="text" id="inputTarea" placeholder="Nueva tarea..." autocomplete="off">
+            <button type="submit" id="btnAgregar">Agregar</button>
+        </form>
+        <div id="estadistica" class="estadisticas"></div>
+    </header>
+
+    <main class="contenedor">
+        <section id="contenedorLista" class="grilla-tareas"></section>
+    </main>
+
+    <script src="ToDo_List.js"></script>
+</body>
+</html>

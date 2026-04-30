@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Adrian Vasquez Perez">
+  <title>Sistema de Inventario Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Sistema_de_Inventario.css">
+</head>
+<body>
+
+  <div class="encabezado-pagina">
+    <h1>📦 Sistema de Inventario</h1>
+    <p>Gestión de productos en tiempo real</p>
+  </div>
+
+  <section class="tarjeta">
+    <h3>Registrar producto</h3>
+    <div class="grilla-formulario">
+      <div class="grupo-formulario">
+        <label for="nombre">Nombre del producto</label>
+        <input type="text" id="nombre" placeholder="Ej: Pizza" />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="cantidad">Cantidad inicial</label>
+        <input type="number" id="cantidad" value="1" min="1" />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="precio">Precio unitario ($)</label>
+        <input type="number" id="precio" placeholder="0.00" step="0.01" min="0" />
+      </div>
+
+      <button id="btnAgregar" class="btn-formulario">+ Agregar al Inventario</button>
+    </div>
+  </section>
+
+  <section class="tarjeta">
+    <h3>Listado de existencias</h3>
+    <div class="contenedor-tabla">
+      <table id="tabla">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTabla"></tbody>
+      </table>
+    </div>
+    <div class="contenedor-total">
+      <span id="totalGeneral">Total general: $0.00</span>
+    </div>
+  </section>
+
+  <script src="Sistema_de_Inventario.js"></script>
+</body>
+</html>

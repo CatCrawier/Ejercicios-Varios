@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Adrian Vasquez Perez">
+    <title>Sistema de Autenticación</title>
+    <link rel="stylesheet" href="Registro_Login.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <div id="formulario-login" class="caja-formulario">
+            <h2>Iniciar Sesión</h2>
+            <form id="autenticacion-login">
+                <input type="email" id="login-correo" placeholder="Correo electrónico" required>
+                <input type="password" id="login-contrasena" placeholder="Contraseña" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <p>¿No tienes cuenta? <a href="#" onclick="alternarFormulario()">Regístrate aquí</a></p>
+        </div>
+
+        <div id="formulario-registro" class="caja-formulario oculto">
+            <h2>Crear Cuenta</h2>
+            <form id="autenticacion-registro">
+                <input type="text" id="registro-usuario" placeholder="Nombre de usuario" required>
+                <input type="email" id="registro-correo" placeholder="Correo electrónico" required>
+                <input type="password" id="registro-contrasena" placeholder="Contraseña" required>
+                <button type="submit">Registrarse</button>
+            </form>
+            <p>¿Ya tienes cuenta? <a href="#" onclick="alternarFormulario()">Inicia sesión</a></p>
+        </div>
+
+        <div id="pantalla-bienvenida" class="caja-formulario oculto">
+            <h2 id="mensaje-bienvenida"></h2>
+            <button onclick="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <script src="Registro_Login.js"></script>
+</body>
+</html>
