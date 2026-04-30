@@ -9,12 +9,13 @@
 </head>
 <body>
 
-    <div class="contenedor">
-        <div id="formulario-login" class="caja-formulario">
+    <div class="contenedor-principal">
+
+        <div id="formulario-inicio-sesion" class="caja-formulario">
             <h2>Iniciar Sesión</h2>
-            <form id="autenticacion-login">
-                <input type="email" id="login-correo" placeholder="Correo electrónico" required>
-                <input type="password" id="login-contrasena" placeholder="Contraseña" required>
+            <form id="autenticacion-inicio-sesion">
+                <input type="email"    id="inicio-sesion-correo"    placeholder="Correo electrónico" required>
+                <input type="password" id="inicio-sesion-contrasena" placeholder="Contraseña"         required>
                 <button type="submit">Entrar</button>
             </form>
             <p>¿No tienes cuenta? <a href="#" onclick="alternarFormulario()">Regístrate aquí</a></p>
@@ -23,9 +24,9 @@
         <div id="formulario-registro" class="caja-formulario oculto">
             <h2>Crear Cuenta</h2>
             <form id="autenticacion-registro">
-                <input type="text" id="registro-usuario" placeholder="Nombre de usuario" required>
-                <input type="email" id="registro-correo" placeholder="Correo electrónico" required>
-                <input type="password" id="registro-contrasena" placeholder="Contraseña" required>
+                <input type="text"     id="registro-usuario"   placeholder="Nombre de usuario"  required>
+                <input type="email"    id="registro-correo"    placeholder="Correo electrónico"  required>
+                <input type="password" id="registro-contrasena" placeholder="Contraseña"          required>
                 <button type="submit">Registrarse</button>
             </form>
             <p>¿Ya tienes cuenta? <a href="#" onclick="alternarFormulario()">Inicia sesión</a></p>
@@ -33,8 +34,32 @@
 
         <div id="pantalla-bienvenida" class="caja-formulario oculto">
             <h2 id="mensaje-bienvenida"></h2>
+            <button class="boton-secundario" onclick="mostrarEdicion()">✏️ Editar mis datos</button>
+            <button class="boton-peligro" onclick="mostrarConfirmacionEliminacion()">🗑️ Eliminar mi cuenta</button>
             <button onclick="cerrarSesion()">Cerrar Sesión</button>
         </div>
+
+        <div id="formulario-edicion" class="caja-formulario oculto">
+            <h2>Editar Perfil</h2>
+            <form id="autenticacion-edicion">
+                <label>Nombre de usuario</label>
+                <input type="text"     id="edicion-usuario"    placeholder="Nuevo nombre de usuario">
+                <label>Correo electrónico</label>
+                <input type="email"    id="edicion-correo"     placeholder="Nuevo correo">
+                <label>Nueva contraseña <span class="texto-ayuda">(dejar vacío para no cambiar)</span></label>
+                <input type="password" id="edicion-contrasena" placeholder="Nueva contraseña">
+                <button type="submit">Guardar cambios</button>
+            </form>
+            <p><a href="#" onclick="volverABienvenida()">← Volver</a></p>
+        </div>
+
+        <div id="confirmacion-eliminacion" class="caja-formulario oculto">
+            <h2>⚠️ Eliminar Cuenta</h2>
+            <p class="texto-advertencia">¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.</p>
+            <button id="confirmar-eliminacion" class="boton-peligro">Sí, eliminar mi cuenta</button>
+            <button id="cancelar-eliminacion" class="boton-secundario">Cancelar</button>
+        </div>
+
     </div>
 
     <script src="Registro_Login.js"></script>

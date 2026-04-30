@@ -4,3 +4,5 @@
 .sixth/
 venv/
 oracleJdk-26/
+__pycache__/
+*.json

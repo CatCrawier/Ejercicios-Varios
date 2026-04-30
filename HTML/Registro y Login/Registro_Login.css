@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 
-.contenedor {
+.contenedor-principal {
     background: white;
     padding: 2rem;
     border-radius: 10px;
@@ -19,15 +19,36 @@ body {
 .caja-formulario h2 {
     text-align: center;
     color: #333;
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-size: 0.82rem;
+    color: #555;
+    margin: 10px 0 2px 2px;
+    font-weight: 600;
+}
+
+.texto-ayuda {
+    font-weight: 400;
+    color: #999;
+    font-size: 0.78rem;
 }
 
 input {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
+    margin: 4px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #007bff;
 }
 
 button {
@@ -39,15 +60,48 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.2s;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
+.boton-secundario {
+    background-color: #ffffff;
+    color: #007bff;
+    border: 1.5px solid #007bff;
+    margin-bottom: 6px;
+}
+
+.boton-secundario:hover {
+    background-color: #e8f1ff;
+}
+
+.boton-peligro {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    margin-bottom: 6px;
+}
+
+.boton-peligro:hover {
+    background-color: #c82333;
+}
+
+.texto-advertencia {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #dc3545;
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
 p {
     text-align: center;
     font-size: 0.9rem;
+    margin-top: 12px;
 }
 
 .oculto {
@@ -57,4 +111,8 @@ p {
 a {
     color: #007bff;
     text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
