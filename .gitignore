@@ -1,0 +1,9 @@
+.qodo/
+.gitattributes
+.vscode/
+.sixth/
+venv/
+oracleJdk-26/
+__pycache__/
+*.json
+**/config.js

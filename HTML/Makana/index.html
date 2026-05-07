@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Adrian Vasquez Perez" />
+  <title>Makaná Pizza — Inicio</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="header-logo">Makaná <span>Pizza</span></a>
+    <input type="checkbox" id="menu-check" class="menu-check" />
+    <label for="menu-check" class="menu-toggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </label>
+    <nav id="nav-principal">
+      <ul>
+        <li><a href="index.html" class="activo">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-texto fade-in">
+      <h1>Sabor <span>auténtico</span> en cada bocado</h1>
+      <p>Pizzas, comida rápida y platos a la carta preparados con ingredientes frescos y recetas únicas. Bienvenido a Makaná.</p>
+      <a href="servicios.html" class="btn btn-amarillo">Ver nuestros servicios</a>
+    </div>
+    <div class="hero-imagen fade-in">
+      <!-- Reemplazar src con la imagen del banner proporcionada por el cliente -->
+      <img src="images/banner.jpg" alt="Banner Makaná Pizza"
+           onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>📸 Imagen del banner<br>(reemplazar con images/banner.jpg)</div>'" />
+    </div>
+  </section>
+
+  <!-- DESCRIPCIÓN -->
+  <section class="seccion">
+    <h2 class="seccion-titulo fade-in">Quiénes somos</h2>
+    <p class="seccion-subtitulo fade-in">Conoce más sobre Makaná</p>
+    <div class="descripcion-parrafos">
+      <p class="fade-in">
+        Makaná es un restaurante especializado en pizzas, comida rápida y platos a la carta, enfocado en ofrecer productos de alta calidad, buen servicio y un ambiente agradable para sus clientes. Nuestro objetivo es brindar una experiencia gastronómica única con sabores auténticos y atención rápida.
+      </p>
+      <p class="fade-in">
+        En Makaná los clientes pueden disfrutar de una gran variedad de pizzas, hamburguesas, comidas rápidas y platos especiales preparados con ingredientes frescos y recetas cuidadosamente elaboradas.
+      </p>
+      <p class="fade-in">
+        Además, ofrecemos promociones especiales y opciones para compartir con amigos y familia.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROMOCIONES -->
+  <section class="promociones">
+    <div style="max-width:1100px; margin:0 auto;">
+      <h2 class="seccion-titulo fade-in">Promociones destacadas</h2>
+      <p class="seccion-subtitulo fade-in">Aprovecha nuestras ofertas especiales</p>
+      <div class="promo-grid">
+        <div class="promo-card fade-in">
+          <div class="promo-icon">🍕</div>
+          <h3>2x1 en Pizzas</h3>
+          <p>Todos los martes pide dos pizzas y paga solo una. ¡No te lo pierdas!</p>
+        </div>
+        <div class="promo-card fade-in">
+          <div class="promo-icon">🍖</div>
+          <h3>Costillas BBQ</h3>
+          <p>Costillas de cerdo a la BBQ acompañadas de papas fritas y ensalada. Porción mini (230g) desde $28.000 y porción grande desde $33.000.</p>
+        </div>
+        <div class="promo-card fade-in">
+          <div class="promo-icon">🛵</div>
+          <h3>Domicilios</h3>
+          <p>
+            <strong>Makaná Principal:</strong> 210 267 8422 · 313 302 6612 · (031) 855 15 72<br><br>
+            <strong>Makaná Plus:</strong> 323 735 1470 · 3228521770<br><br>
+            Horario: 1:00 PM – 10:00 PM todos los días.
+          </p>
+        </div>
+        <div class="promo-card fade-in">
+          <div class="promo-icon">🎉</div>
+          <h3>Cumpleaños</h3>
+          <p>Celebra con nosotros y recibe un postre gratis en tu día especial.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Makaná. Todos los derechos reservados.</p>
+    <div class="footer-redes">
+      <a href="https://www.facebook.com/MakanaPizza/?locale=es_LA" class="facebook" title="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/makanapizza/?hl=es" class="instagram" title="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+      <a href="https://api.whatsapp.com/send?phone=573227351470&text=Makan%c3%a1%20Pizza%20Ubate." class="whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </footer>
+</body>
+</html>

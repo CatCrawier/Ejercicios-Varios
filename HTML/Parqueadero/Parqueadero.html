@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="author" content="Adrian Vasquez Perez">
+  <title>Parqueadero HITSS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="Parqueadero.css"/>
+</head>
+<body>
+
+<div class="maquina">
+
+  <div class="encabezado-maquina">
+    <div class="punto-logo"></div>
+    <div>
+      <div class="titulo-maquina">PARQUEADERO</div>
+      <div class="subtitulo-maquina">SISTEMA DE COBRO AUTOMATIZADO · HITSS</div>
+    </div>
+  </div>
+
+  <div class="pantalla">
+    <div class="texto-pantalla" id="mensajePantalla">► BIENVENIDO. INGRESE LOS DATOS DEL VEHÍCULO.</div>
+  </div>
+
+  <div class="pasos">
+    <div class="btn-paso activo" id="pestana1">① DATOS</div>
+    <div class="btn-paso"        id="pestana2">② RESUMEN</div>
+    <div class="btn-paso"        id="pestana3">③ PAGO</div>
+    <div class="btn-paso"        id="pestana4">④ CAMBIO</div>
+  </div>
+
+  <div class="area-formulario seccion activo" id="seccion1">
+
+    <div class="grupo-campo">
+      <label for="tipoVehiculo">Tipo de Vehículo</label>
+      <select id="tipoVehiculo">
+        <option value="">-- Seleccione --</option>
+        <option value="auto">Automóvil</option>
+        <option value="moto">Motocicleta</option>
+      </select>
+      <div class="pista-error" id="errorTipo">⚠ Seleccione el tipo de vehículo.</div>
+    </div>
+
+    <div class="grupo-campo">
+      <label for="placa">Placa del Vehículo</label>
+      <input type="text" id="placa" placeholder="Ej: ABC123" maxlength="6"/>
+      <div class="pista-error" id="errorPlaca">⚠ Placa inválida. Formato: 3 letras + 3 dígitos (ej: ABC123).</div>
+    </div>
+
+    <div class="fila-doble">
+      <div class="grupo-campo">
+        <label for="horaIngreso">Hora de Ingreso</label>
+        <input type="time" id="horaIngreso"/>
+        <div class="pista-error" id="errorIngreso">⚠ Ingrese la hora de entrada.</div>
+      </div>
+      <div class="grupo-campo">
+        <label for="horaSalida">Hora de Salida</label>
+        <input type="time" id="horaSalida"/>
+        <div class="pista-error" id="errorSalida">⚠ La salida debe ser después de la entrada.</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primario" onclick="calcular()">CALCULAR TARIFA ▶</button>
+  </div>
+
+  <div class="area-formulario seccion" id="seccion2">
+    <div class="resumen" id="cuadroResumen"></div>
+    <div class="fila-botones">
+      <button class="btn btn-secundario" onclick="irA(1)">◀ VOLVER</button>
+      <button class="btn btn-primario" style="flex:1" onclick="irA(3)">PROCEDER AL PAGO ▶</button>
+    </div>
+  </div>
+
+  <div class="area-formulario seccion" id="seccion3">
+
+    <div class="info-pago">
+      <span>TOTAL A PAGAR:</span>
+      <span id="etiquetaTotalPagar">$0</span>
+    </div>
+    <div class="info-pago" style="margin-bottom:6px">
+      <span>MONTO INGRESADO:</span>
+      <span id="etiquetaMontoIngresado" style="color:var(--verde)">$0</span>
+    </div>
+
+    <div style="font-size:0.63rem; color:var(--tenue); letter-spacing:1.5px; margin-bottom:10px;">
+      SELECCIONE DENOMINACIÓN:
+    </div>
+    <div class="denominaciones" id="rejillaDenominaciones"></div>
+
+    <div class="fila-botones" style="margin-top:8px">
+      <button class="btn btn-secundario" onclick="reiniciarPago()">✕ LIMPIAR</button>
+      <button class="btn btn-exito" id="botonPagar"
+              style="flex:1; opacity:0.4; cursor:not-allowed"
+              onclick="pagar()">
+        INSERTAR PAGO ▶
+      </button>
+    </div>
+    <div class="pista-error" id="errorPago"></div>
+  </div>
+
+  <div class="area-formulario seccion" id="seccion4">
+    <div class="caja-cambio" id="cuadroCambio"></div>
+    <div style="margin-top:14px">
+      <button class="btn btn-primario" onclick="nuevaOperacion()">↺ NUEVA OPERACIÓN</button>
+    </div>
+  </div>
+
+  <div class="pie-pagina">
+    <span style="font-size:0.6rem; color:var(--tenue); letter-spacing:2px">
+      HITSS © 2024 · SISTEMA DE PARQUEADERO v1.0
+    </span>
+  </div>
+
+</div>
+
+<script src="Parqueadero.js"></script>
+
+</body>
+</html>

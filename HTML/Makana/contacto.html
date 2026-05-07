@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Adrian Vasquez Perez" />
+  <title>Makaná Pizza — Contacto</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="header-logo">Makaná <span>Pizza</span></a>
+    <input type="checkbox" id="menu-check" class="menu-check" />
+    <label for="menu-check" class="menu-toggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </label>
+    <nav id="nav-principal">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="contacto.html" class="activo">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CONTACTO -->
+  <section class="seccion">
+    <h1 class="seccion-titulo fade-in">Contáctanos</h1>
+    <p class="seccion-subtitulo fade-in">Estamos para atenderte. ¡Escríbenos!</p>
+
+    <div class="contacto-grid">
+
+      <!-- FORMULARIO -->
+      <div class="formulario-contacto fade-in">
+        <h2>Envíanos un mensaje</h2>
+
+        <div class="campo">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" />
+        </div>
+
+        <div class="campo">
+          <label for="telefono">Número de teléfono</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="Ej: 310 000 0000" />
+        </div>
+
+        <div class="campo">
+          <label for="mensaje">Mensaje de WhatsApp</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Escribe tu pedido o consulta aquí..."></textarea>
+        </div>
+
+        <a href="https://wa.me/573208476508" target="_blank" class="btn btn-verde" style="width:100%; text-align:center; display:block;">
+          <i class="fab fa-whatsapp"></i> &nbsp;Enviar por WhatsApp
+        </a>
+      </div>
+
+      <!-- INFO -->
+      <div class="info-contacto fade-in">
+        <h2>Información de contacto</h2>
+
+        <div class="info-item">
+          <div class="info-icono"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="info-texto">
+            <strong>Dirección</strong>
+            <span>Calle 6 # 8-37, Ubaté, Cundinamarca</span>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icono"><i class="fas fa-clock"></i></div>
+          <div class="info-texto">
+            <strong>Horario de atención</strong>
+            <span>1:00 PM – 10:00 PM · Todos los días</span>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icono"><i class="fas fa-phone"></i></div>
+          <div class="info-texto">
+            <strong>Teléfono / WhatsApp</strong>
+            <span>+57 320 847 6508</span>
+          </div>
+        </div>
+
+        <!-- MAPA ESTÁTICO -->
+        <div class="mapa-wrap">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7945.4256456526355!2d-73.82555292229004!3d5.307429200000021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e40385dd8d1bdb7%3A0x54880cd74614345e!2zTWFrYW7DoSBQaXp6YSBVYmF0w6k!5e0!3m2!1ses-419!2sco!4v1773013997951!5m2!1ses-419!2sco" width="100%" height="400" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Makaná. Todos los derechos reservados.</p>
+    <div class="footer-redes">
+      <a href="https://www.facebook.com/MakanaPizza/?locale=es_LA" class="facebook" title="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/makanapizza/?hl=es" class="instagram" title="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+      <a href="https://api.whatsapp.com/send?phone=573227351470&text=Makan%c3%a1%20Pizza%20Ubate." class="whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </footer>
+</body>
+</html>

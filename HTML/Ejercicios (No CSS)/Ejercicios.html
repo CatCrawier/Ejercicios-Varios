@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Adrian Vasquez Perez">
+    <title>Ejercicios JS</title>
+</head>
+<body>
+    <header>
+        <h1>Ejercicios JS</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Ejercicio 01: Operaciones con digitos de un numero de 8 cifras</h2>
+
+            <label for="entradaNumero">Ingresa un numero de exactamente 8 digitos:</label>
+            <input
+                type="text"
+                id="entradaNumero"
+                maxlength="8"
+                placeholder="12345678"
+                oninput="procesarNumero(this.value)"
+            >
+            <p id="errorNumero"></p>
+
+            <h3>Digitos ingresados</h3>
+            <ol id="vistaDigitos">
+                <li>Posicion 1: <span id="digito1">-</span></li>
+                <li>Posicion 2: <span id="digito2">-</span></li>
+                <li>Posicion 3: <span id="digito3">-</span></li>
+                <li>Posicion 4: <span id="digito4">-</span></li>
+                <li>Posicion 5: <span id="digito5">-</span></li>
+                <li>Posicion 6: <span id="digito6">-</span></li>
+                <li>Posicion 7: <span id="digito7">-</span></li>
+                <li>Posicion 8: <span id="digito8">-</span></li>
+            </ol>
+
+            <h3>Resultados</h3>
+            <ul>
+                <li>
+                    Suma del centro:
+                    <strong id="v-suma">-</strong>
+                    (<span id="f-suma">d4 + d5</span>)
+                </li>
+                <li>
+                    Multiplicacion de extremos:
+                    <strong id="v-multiplicacion">-</strong>
+                    (<span id="f-multiplicacion">d1 x d8</span>)
+                </li>
+                <li>
+                    Resta d7 - d2:
+                    <strong id="v-resta">-</strong>
+                    (<span id="f-resta">d7 - d2</span>)
+                </li>
+                <li>
+                    Potencia d3 ^ d6:
+                    <strong id="v-potencia">-</strong>
+                    (<span id="f-potencia">d3 ^ d6</span>)
+                </li>
+            </ul>
+
+            <button type="button" id="ejemploNumero">Cargar ejemplo (12345678)</button>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>Ejercicio 02: Conversor de temperatura</h2>
+
+            <div>
+                <label for="t-celsius">Celsius (C):</label>
+                <input
+                    id="t-celsius"
+                    type="number"
+                    placeholder="0"
+                    oninput="convertirTemperatura('celsius', this.value)"
+                >
+                <p id="td-celsius"></p>
+            </div>
+
+            <div>
+                <label for="t-kelvin">Kelvin (K):</label>
+                <input
+                    id="t-kelvin"
+                    type="number"
+                    placeholder="273.15"
+                    oninput="convertirTemperatura('kelvin', this.value)"
+                >
+                <p id="td-kelvin"></p>
+            </div>
+
+            <div>
+                <label for="t-fahrenheit">Fahrenheit (F):</label>
+                <input
+                    id="t-fahrenheit"
+                    type="number"
+                    placeholder="32"
+                    oninput="convertirTemperatura('fahrenheit', this.value)"
+                >
+                <p id="td-fahrenheit"></p>
+            </div>
+
+            <p>
+                Formulas:
+                F = (C x 9/5) + 32 |
+                K = C + 273.15 |
+                C = (F - 32) x 5/9 |
+                C = K - 273.15
+            </p>
+
+            <button type="button" id="ejemploTemperatura">Ejemplo: 100 C</button>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>Ejercicio 03: Conversor de longitud</h2>
+
+            <div>
+                <label for="l-km">Kilometros (km):</label>
+                <input
+                    id="l-km"
+                    type="number"
+                    placeholder="1"
+                    oninput="convertirLongitud('km', this.value)"
+                >
+                <p id="ld-km"></p>
+            </div>
+
+            <div>
+                <label for="l-mi">Millas (mi):</label>
+                <input
+                    id="l-mi"
+                    type="number"
+                    placeholder="1"
+                    oninput="convertirLongitud('mi', this.value)"
+                >
+                <p id="ld-mi"></p>
+            </div>
+
+            <div>
+                <label for="l-mt">Metros (m):</label>
+                <input
+                    id="l-mt"
+                    type="number"
+                    placeholder="1000"
+                    oninput="convertirLongitud('mt', this.value)"
+                >
+                <p id="ld-mt"></p>
+            </div>
+
+            <p>
+                Conversiones:
+                1 km = 0.621371 mi = 1000 m |
+                1 mi = 1.60934 km = 1609.34 m |
+                1 m = 0.001 km = 0.000621371 mi
+            </p>
+
+            <button type="button" id="ejemploLongitud">Ejemplo: 1 milla</button>
+        </section>
+    </main>
+
+    <script src="Ejercicios.js"></script>
+</body>
+</html>

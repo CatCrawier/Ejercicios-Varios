@@ -1,0 +1,13 @@
+import tkinter as tk
+ventana = tk.Tk()
+ventana.title("Ejemplo Grid")
+ventana.geometry("200x100")
+label1 = tk.Label(ventana, text="Etiqueta 1", bg="black", fg="white", font=("Arial", 12))
+label1.grid(row=0, column=0, padx=5, pady=5)
+label2 = tk.Label(ventana, text="Etiqueta 2", bg="black", fg="white", font=("Arial", 12))
+label2.grid(row=0, column=1, padx=5, pady=5)
+label3 = tk.Label(ventana, text="Etiqueta 3", bg="black", fg="white", font=("Arial", 12))
+label3.grid(row=1, column=0, padx=5, pady=5)
+label4 = tk.Label(ventana, text="Etiqueta 4", bg="black", fg="white", font=("Arial", 12))
+label4.grid(row=1, column=1, padx=5, pady=5)
+ventana.mainloop()
