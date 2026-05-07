@@ -142,6 +142,9 @@ function cargarMas() {
   cargarProductos(false);
 }
 
+window.establecerFiltro = establecerFiltro;
+window.cargarMas = cargarMas;
+
 (async () => {
   await cargarCategorias();
   await cargarProductos(true);
