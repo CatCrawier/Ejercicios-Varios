@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva contraseña — Sistema de Inventario</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="auth-page">
+
+<div class="contenedor-auth">
+
+    <div class="auth-brand">
+        <span class="auth-icon">🔒</span>
+        <h1>Nueva contraseña</h1>
+        <p>Elige una contraseña segura</p>
+    </div>
+
+    <div id="formReset">
+        <div class="form-group">
+            <label for="newPassword">Nueva contraseña</label>
+            <input type="password" id="newPassword" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirmar contraseña</label>
+            <input type="password" id="confirmPassword" placeholder="Repite la contraseña" autocomplete="new-password">
+        </div>
+
+        <p id="errorReset" class="error-msg" style="display:none;"></p>
+
+        <button id="btnReset" class="btn btn-full">Guardar nueva contraseña</button>
+    </div>
+
+    <div id="mensajeExito" style="display:none; text-align:center;">
+        <p class="success-msg" style="display:block; margin-bottom:16px;">
+            ✅ Contraseña actualizada correctamente.
+        </p>
+        <a href="login.html" class="btn btn-full" style="text-decoration:none; display:inline-block;">
+            Ir al inicio de sesión
+        </a>
+    </div>
+
+    <!-- Mensaje si el enlace es inválido o expiró -->
+    <div id="mensajeInvalido" style="display:none; text-align:center;">
+        <p class="error-msg" style="display:block; margin-bottom:16px;">
+            ⚠️ El enlace es inválido o ya expiró.
+        </p>
+        <a href="recuperar.html" class="btn btn-full" style="text-decoration:none; display:inline-block;">
+            Solicitar nuevo enlace
+        </a>
+    </div>
+
+</div>
+
+<script type="module" src="js/reset.js"></script>
+</body>
+</html>

@@ -7,3 +7,5 @@ oracleJdk-26/
 __pycache__/
 *.json
 **/config.js
+**/supabase.js
+.kombai/
