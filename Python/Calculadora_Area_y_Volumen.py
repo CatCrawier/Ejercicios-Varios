@@ -20,7 +20,7 @@ def menu():
             r = float(input("Ingresa el Radio de la Esfera: "))
             print("Area:", area_esfera(r))
             print("Volumen:", volumen_esfera(r))
-        
+
         elif opcion == "2":
             r = float(input("Ingresa el Radio del Cono: "))
             h = float(input("Ingresa la Altura del Cono: "))

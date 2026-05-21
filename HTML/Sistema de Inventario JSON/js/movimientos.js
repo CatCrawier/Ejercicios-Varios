@@ -1,6 +1,3 @@
-// ============================================================
-//  movimientos.js - Movimientos de inventario con JSON local
-// ============================================================
 import { confirmar } from './confirmar.js';
 import {
   addMovimiento,

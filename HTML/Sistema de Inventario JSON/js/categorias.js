@@ -1,6 +1,3 @@
-// ============================================================
-//  categorias.js - CRUD de categorias con JSON local
-// ============================================================
 import { confirmar } from './confirmar.js';
 import { addCategoria, deleteCategoria, listCategorias, updateCategoria } from './jsonDB.js';
 

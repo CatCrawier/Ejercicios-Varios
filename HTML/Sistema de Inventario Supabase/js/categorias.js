@@ -1,6 +1,3 @@
-// ============================================================
-//  categorias.js — CRUD completo de categorías
-// ============================================================
 import { supabase }  from './supabase.js';
 import { confirmar } from './confirmar.js';
 
@@ -15,7 +12,6 @@ function mostrarMensaje(msg, tipo = 'success') {
   toast._timer = setTimeout(() => toast.classList.remove('toast--visible'), 3500);
 }
 
-// ─── Render tabla ─────────────────────────────────────────────
 function renderTablaCategoria(categorias) {
   const tbody = document.getElementById('tbodyCategorias');
   if (!tbody) return;
@@ -47,7 +43,6 @@ function renderTablaCategoria(categorias) {
   );
 }
 
-// ─── Cargar y mostrar ─────────────────────────────────────────
 export async function mostrarCategorias() {
   const tbody = document.getElementById('tbodyCategorias');
   if (!tbody) return;
@@ -65,21 +60,18 @@ export async function mostrarCategorias() {
   renderTablaCategoria(data ?? []);
 }
 
-// ─── Agregar ──────────────────────────────────────────────────
 export async function agregarCategoria(datos) {
   const { error } = await supabase.from('categorias').insert(datos);
   if (error) { mostrarMensaje('Error al agregar categoría.', 'error'); console.error(error); }
   else { mostrarMensaje('Categoría agregada. ✅'); resetFormCat(); await mostrarCategorias(); }
 }
 
-// ─── Actualizar ───────────────────────────────────────────────
 export async function actualizarCategoria(id, datos) {
   const { error } = await supabase.from('categorias').update(datos).eq('id', id);
   if (error) { mostrarMensaje('Error al actualizar categoría.', 'error'); console.error(error); }
   else { mostrarMensaje('Categoría actualizada. ✅'); resetFormCat(); await mostrarCategorias(); }
 }
 
-// ─── Eliminar ─────────────────────────────────────────────────
 async function eliminarCategoria(id, nombre) {
   const ok = await confirmar({
     titulo:   'Eliminar categoría definitivamente',
@@ -93,7 +85,6 @@ async function eliminarCategoria(id, nombre) {
   else { mostrarMensaje('Categoría eliminada. 🗑️'); await mostrarCategorias(); }
 }
 
-// ─── Cargar en formulario ─────────────────────────────────────
 function cargarCatEditar(cat) {
   editandoCatId = cat.id;
   document.getElementById('catNombre').value      = cat.nombre;
@@ -107,7 +98,6 @@ function cargarCatEditar(cat) {
   document.getElementById('catNombre').focus();
 }
 
-// ─── Reset formulario ─────────────────────────────────────────
 export function resetFormCat() {
   editandoCatId = null;
   ['catNombre','catDescripcion','catEmoji'].forEach(id => {
@@ -122,7 +112,6 @@ export function resetFormCat() {
 
 export { editandoCatId };
 
-// ─── Inicializar listeners ────────────────────────────────────
 export function initCategorias() {
   const btnGuardar  = document.getElementById('btnGuardarCat');
   const btnCancelar = document.getElementById('btnCancelarCat');

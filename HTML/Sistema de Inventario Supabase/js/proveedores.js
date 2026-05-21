@@ -1,6 +1,3 @@
-// ============================================================
-//  proveedores.js — Carga proveedores desde Supabase
-// ============================================================
 import { supabase } from './supabase.js';
 
 export async function obtenerProveedores() {

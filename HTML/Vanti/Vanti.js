@@ -1,6 +1,3 @@
-// Calculadora de tarifas de gas
-// Autor: Adrian Vasquez Perez
-
 function calcularGas() {
 let cuenta;
 while (true) {
@@ -44,8 +41,6 @@ while (true) {
     }
     alert("El consumo debe ser un número mayor o igual a 0.");
 }
-
-
 
     let tarifa;
 

@@ -1,6 +1,3 @@
-// ============================================================
-//  jsonDB.js - Persistencia JSON visible en data/inventario.json
-// ============================================================
 import { validarEmail, validarPassword } from './validaciones.js';
 
 const API_DB_URL = '/api/db';

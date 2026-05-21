@@ -1,15 +1,3 @@
-// ============================================================
-//  confirmar.js — Modal de confirmación reutilizable
-// ============================================================
-
-/**
- * Muestra un modal de confirmación y devuelve una Promise<boolean>.
- * @param {Object} opts
- * @param {string} opts.titulo       - Título del modal
- * @param {string} opts.mensaje      - Mensaje descriptivo
- * @param {string} [opts.btnTexto]   - Texto del botón de confirmar (default: 'Eliminar')
- * @param {string} [opts.tipo]       - 'danger' | 'warning' (default: 'danger')
- */
 export function confirmar({ titulo, mensaje, btnTexto = 'Eliminar', tipo = 'danger' }) {
   return new Promise(resolve => {
     const overlay = document.getElementById('modalOverlay');
@@ -29,7 +17,7 @@ export function confirmar({ titulo, mensaje, btnTexto = 'Eliminar', tipo = 'dang
 
     const cerrar = (resultado) => {
       overlay.classList.remove('modal-overlay--visible');
-      btnConfirmar.replaceWith(btnConfirmar.cloneNode(true)); // limpiar listeners
+      btnConfirmar.replaceWith(btnConfirmar.cloneNode(true));
       btnCancelar.replaceWith(btnCancelar.cloneNode(true));
       resolve(resultado);
     };

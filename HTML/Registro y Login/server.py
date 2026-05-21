@@ -162,8 +162,8 @@ class Manejador(http.server.BaseHTTPRequestHandler):
                 self._responder_json(401, {"error": "Credenciales incorrectas."})
                 return
 
-            print(f"  [→] Login exitoso: {encontrado['usuario']}")
-            self._responder_json(200, {"mensaje": "Login exitoso.", "usuario": encontrado})
+            print(f"  [→] Inicio de sesión exitoso: {encontrado['usuario']}")
+            self._responder_json(200, {"mensaje": "Inicio de sesión exitoso.", "usuario": encontrado})
             return
 
         self._responder_json(404, {"error": "Ruta no encontrada."})

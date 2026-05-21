@@ -27,11 +27,9 @@ COLOR_HEADER_BG = "C0392B"
 COLOR_HEADER_FG = "FFFFFF"
 COLOR_FILA_PAR = "FADBD8"
 
-
 def crear_bordes():
     thin = Side(style="thin", color="BDBDBD")
     return Border(left=thin, right=thin, top=thin, bottom=thin)
-
 
 def crear_hoja_tabla(libro_trabajo, cursor_bd, tabla):
     cursor_bd.execute(f"SELECT * FROM `{tabla}`")
@@ -77,7 +75,6 @@ def crear_hoja_tabla(libro_trabajo, cursor_bd, tabla):
 
     return filas, columnas
 
-
 def crear_hoja_resumen(libro_trabajo, resumen_tablas):
     hoja = libro_trabajo.create_sheet(title="Indice", index=0)
     hoja.sheet_view.showGridLines = False
@@ -115,7 +112,6 @@ def crear_hoja_resumen(libro_trabajo, resumen_tablas):
     hoja.column_dimensions["B"].width = 20
     hoja.column_dimensions["C"].width = 22
 
-
 def exportar_csv(archivo_csv, datos):
     with open(archivo_csv, "w", newline="", encoding="utf-8-sig") as archivo:
         writer = csv.writer(archivo, quoting=csv.QUOTE_MINIMAL)
@@ -124,7 +120,6 @@ def exportar_csv(archivo_csv, datos):
             writer.writerow(columnas)
             writer.writerows(filas)
             writer.writerow([])
-
 
 def principal():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -177,7 +172,6 @@ def principal():
         if conn is not None and conn.is_connected():
             conn.close()
             print("Conexion cerrada.")
-
 
 if __name__ == "__main__":
     principal()

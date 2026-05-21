@@ -30,7 +30,7 @@ def guardar_asistentes(asistentes):
 def gestionar_eventos():
     asistentes = cargar_asistentes()
     CAPACIDAD_MAXIMA = 20
-    
+
     while True:
         print("\n--- SISTEMA DE GESTIÓN CONCIERTOS VIP ---")
         print(f"Estado: {len(asistentes)}/{CAPACIDAD_MAXIMA} ocupados")
@@ -40,7 +40,7 @@ def gestionar_eventos():
         print("4. Retirar asistente (Eliminar)")
         print("5. Ver estadísticas")
         print("6. Salir")
-        
+
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
@@ -48,7 +48,7 @@ def gestionar_eventos():
                 print("Cupo lleno. No se pueden registrar más personas.")
             else:
                 nuevo_nombre = input("Nombre completo del asistente: ").strip().title()
-                
+
                 if nuevo_nombre in asistentes:
                     print(f"{nuevo_nombre} ya se encuentra en la lista.")
                 elif nuevo_nombre == "":
@@ -96,7 +96,7 @@ def gestionar_eventos():
         elif opcion == "6":
             print("Cerrando sistema... ¡Buen evento!")
             break
-        
+
         else:
             print("Opción no válida, intente de nuevo.")
 

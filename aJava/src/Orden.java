@@ -2,7 +2,7 @@ public class Orden {
     public static void main(String[] args) {
         int[] notas = {50, 20, 40, 10, 30};
 
-        System.out.println("Arreglo Original: ");
+        System.out.println("Arreglo original: ");
         imprimirArreglo(notas);
 
         for (int i = 0; i < notas.length - 1; i++) {
@@ -14,7 +14,7 @@ public class Orden {
                 }
             }
         }
-        System.out.println("\nArreglo Ordenado: ");
+        System.out.println("\nArreglo ordenado: ");
         imprimirArreglo(notas);
     }
     public static void imprimirArreglo(int[] arreglo) {

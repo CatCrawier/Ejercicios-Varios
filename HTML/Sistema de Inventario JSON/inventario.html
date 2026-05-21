@@ -14,7 +14,6 @@
     <button id="btnLogout" class="btn-danger">Cerrar sesión</button>
   </header>
 
-  <!-- Pestañas de navegación -->
   <nav class="tabs-nav">
     <button class="tab-btn tab-btn--active" data-tab="tab-productos">🛍️ Productos</button>
     <button class="tab-btn" data-tab="tab-categorias">🏷️ Categorías</button>
@@ -24,7 +23,6 @@
 
   <main class="page-content">
 
-    <!-- TAB 1: PRODUCTOS -->
     <div id="tab-productos" class="tab-panel tab-panel--active">
       <section class="card">
         <h2 class="section-title">➕ Registrar Producto</h2>
@@ -102,7 +100,6 @@
       </section>
     </div>
 
-    <!-- TAB 2: CATEGORÍAS -->
     <div id="tab-categorias" class="tab-panel">
       <section class="card">
         <h2 class="section-title">➕ Nueva Categoría</h2>
@@ -136,7 +133,6 @@
       </section>
     </div>
 
-    <!-- TAB 3: PROVEEDORES -->
     <div id="tab-proveedores" class="tab-panel">
       <section class="card">
         <h2 class="section-title">➕ Nuevo Proveedor</h2>
@@ -156,7 +152,7 @@
             <input type="text" id="provTelefono" placeholder="Ej: 601 234 5678">
           </div>
           <div class="form-group">
-            <label for="provEmail">Email <span class="opt">(opcional)</span></label>
+            <label for="provEmail">Correo electrónico <span class="opt">(opcional)</span></label>
             <input type="email" id="provEmail" placeholder="proveedor@correo.com">
           </div>
         </div>
@@ -177,14 +173,13 @@
         <h2 class="section-title">🏭 Proveedores registrados</h2>
         <div class="tabla-wrap">
           <table class="tabla">
-            <thead><tr><th>Nombre</th><th>Contacto</th><th>Teléfono</th><th>Email</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <thead><tr><th>Nombre</th><th>Contacto</th><th>Teléfono</th><th>Correo electrónico</th><th>Estado</th><th>Acciones</th></tr></thead>
             <tbody id="tbodyProveedores"><tr><td colspan="6" class="loading-text">Cargando…</td></tr></tbody>
           </table>
         </div>
       </section>
     </div>
 
-    <!-- TAB 4: MOVIMIENTOS -->
     <div id="tab-movimientos" class="tab-panel">
       <section class="card">
         <h2 class="section-title">➕ Registrar Movimiento Manual</h2>
@@ -248,7 +243,6 @@
 
 <div id="toast" class="toast"></div>
 
-<!-- Modal de confirmación -->
 <div id="modalOverlay" class="modal-overlay">
   <div class="modal">
     <h3 id="modalTitulo" class="modal-titulo"></h3>

@@ -1,6 +1,3 @@
-// ============================================================
-//  proveedores_crud.js — CRUD completo de proveedores
-// ============================================================
 import { supabase }  from './supabase.js';
 import { confirmar } from './confirmar.js';
 
@@ -15,7 +12,6 @@ function mostrarMensaje(msg, tipo = 'success') {
   toast._timer = setTimeout(() => toast.classList.remove('toast--visible'), 3500);
 }
 
-// ─── Render tabla ─────────────────────────────────────────────
 function renderTablaProv(proveedores) {
   const tbody = document.getElementById('tbodyProveedores');
   if (!tbody) return;
@@ -55,7 +51,6 @@ function renderTablaProv(proveedores) {
   );
 }
 
-// ─── Cargar y mostrar ─────────────────────────────────────────
 export async function mostrarProveedores() {
   const tbody = document.getElementById('tbodyProveedores');
   if (!tbody) return;
@@ -73,21 +68,18 @@ export async function mostrarProveedores() {
   renderTablaProv(data ?? []);
 }
 
-// ─── Agregar ──────────────────────────────────────────────────
 export async function agregarProveedor(datos) {
   const { error } = await supabase.from('proveedores').insert(datos);
   if (error) { mostrarMensaje('Error al agregar proveedor.', 'error'); console.error(error); }
   else { mostrarMensaje('Proveedor agregado. ✅'); resetFormProv(); await mostrarProveedores(); }
 }
 
-// ─── Actualizar ───────────────────────────────────────────────
 export async function actualizarProveedor(id, datos) {
   const { error } = await supabase.from('proveedores').update(datos).eq('id', id);
   if (error) { mostrarMensaje('Error al actualizar proveedor.', 'error'); console.error(error); }
   else { mostrarMensaje('Proveedor actualizado. ✅'); resetFormProv(); await mostrarProveedores(); }
 }
 
-// ─── Activar / desactivar ─────────────────────────────────────
 async function toggleProvActivo(id, activo, nombre) {
   const accion = activo ? 'desactivar' : 'activar';
   const ok = await confirmar({
@@ -102,7 +94,6 @@ async function toggleProvActivo(id, activo, nombre) {
   else { mostrarMensaje(`Proveedor ${activo ? 'desactivado' : 'activado'}. ✅`); await mostrarProveedores(); }
 }
 
-// ─── Eliminar definitivamente ─────────────────────────────────
 async function eliminarProveedorDefinitivo(id, nombre) {
   const ok = await confirmar({
     titulo:   'Eliminar proveedor definitivamente',
@@ -116,7 +107,6 @@ async function eliminarProveedorDefinitivo(id, nombre) {
   else { mostrarMensaje('Proveedor eliminado definitivamente. 🗑️'); await mostrarProveedores(); }
 }
 
-// ─── Cargar en formulario ─────────────────────────────────────
 function cargarProvEditar(prov) {
   editandoProvId = prov.id;
   document.getElementById('provNombre').value   = prov.nombre;
@@ -133,7 +123,6 @@ function cargarProvEditar(prov) {
   document.getElementById('provNombre').focus();
 }
 
-// ─── Reset formulario ─────────────────────────────────────────
 export function resetFormProv() {
   editandoProvId = null;
   ['provNombre','provContacto','provTelefono','provEmail','provDireccion','provNotas'].forEach(id => {
@@ -148,7 +137,6 @@ export function resetFormProv() {
 
 export { editandoProvId };
 
-// ─── Inicializar listeners ────────────────────────────────────
 export function initProveedores() {
   const btnGuardar  = document.getElementById('btnGuardarProv');
   const btnCancelar = document.getElementById('btnCancelarProv');

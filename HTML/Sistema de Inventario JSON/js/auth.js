@@ -1,6 +1,3 @@
-// ============================================================
-//  auth.js - Autenticacion con JSON local
-// ============================================================
 import { getSession, signIn, signOut, signUp } from './jsonDB.js';
 import { validarEmail, validarPassword } from './validaciones.js';
 

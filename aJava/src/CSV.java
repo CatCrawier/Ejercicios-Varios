@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 
 public class CSV {
     public static void main(String[] args) {
-        System.out.println("CSV Writer");
+        System.out.println("Escritor CSV");
 
         String[][] datos = {
             {"SN001", "Lenovo", "2000000"},
@@ -17,7 +17,7 @@ public class CSV {
             FileWriter archivo = new FileWriter(rutaArchivo);
             try (PrintWriter escritor = new PrintWriter(archivo)) {
                 escritor.println("Serie, Marca, Precio");
-                
+
                 for (String[] dato : datos) {
                     escritor.println(dato[0] + "," + dato[1] + "," + dato[2]);
                 }

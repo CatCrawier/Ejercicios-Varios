@@ -1,6 +1,3 @@
-// ============================================================
-//  proveedores_crud.js - CRUD de proveedores con JSON local
-// ============================================================
 import { confirmar } from './confirmar.js';
 import { addProveedor, deleteProveedor, listProveedores, updateProveedor } from './jsonDB.js';
 

@@ -4,11 +4,9 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse
 
-
 CARPETA_BASE = Path(__file__).resolve().parent
 ARCHIVO_TAREAS = CARPETA_BASE / "tareas.json"
 PUERTO = 8000
-
 
 class ServidorTareas(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -159,7 +157,6 @@ class ServidorTareas(SimpleHTTPRequestHandler):
             return int(valor)
         except ValueError:
             return None
-
 
 if __name__ == "__main__":
     servidor = ThreadingHTTPServer(("localhost", PUERTO), ServidorTareas)

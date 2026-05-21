@@ -1,7 +1,7 @@
 import math
 
 class esfera:
-    
+
     def __init__(self, radio):
         self.radio = radio
 
@@ -12,7 +12,7 @@ class esfera:
         return (4/3) * math.pi * self.radio ** 3
 
 class cubo:
-    
+
     def __init__(self, lado):
         self.lado = lado
 
@@ -23,7 +23,7 @@ class cubo:
         return self.lado ** 3
 
 class cono:
-    
+
     def __init__(self, radio, altura):
         self.radio = radio
         self.altura = altura
@@ -36,7 +36,7 @@ class cono:
         return (1/3) * math.pi * self.radio ** 2 * self.altura
 
 class cilindro:
-    
+
     def __init__(self, radio, altura):
         self.radio = radio
         self.altura = altura
@@ -48,7 +48,7 @@ class cilindro:
         return math.pi * self.radio ** 2 * self.altura
 
 def menu():
-    
+
     while True:
         print("\nCalculadora de Áreas y Volúmenes")
         print("\nSeleccione una figura para calcular su área y volumen:")

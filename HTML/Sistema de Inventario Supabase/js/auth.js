@@ -1,9 +1,5 @@
-// ============================================================
-//  auth.js — Autenticación con Supabase
-// ============================================================
 import { supabase } from './supabase.js';
 
-// ─── Helpers de UI ───────────────────────────────────────────
 function setLoading(btn, loading) {
     btn.disabled = loading;
     btn.dataset.originalText = btn.dataset.originalText || btn.textContent;
@@ -17,7 +13,6 @@ function showError(id, msg) {
     el.style.display = msg ? 'block' : 'none';
 }
 
-// ─── Registro ────────────────────────────────────────────────
 const btnRegister = document.getElementById('btnRegister');
 
 if (btnRegister) {
@@ -52,7 +47,6 @@ if (btnRegister) {
     });
 }
 
-// ─── Inicio de sesión ────────────────────────────────────────
 const btnLogin = document.getElementById('btnLogin');
 
 if (btnLogin) {
@@ -86,14 +80,12 @@ if (btnLogin) {
     });
 }
 
-// ─── Protección de inventario.html ───────────────────────────
 if (window.location.pathname.includes('inventario.html')) {
     supabase.auth.getSession().then(({ data: { session } }) => {
         if (!session) window.location.href = 'login.html';
     });
 }
 
-// ─── Cierre de sesión ────────────────────────────────────────
 const btnLogout = document.getElementById('btnLogout');
 
 if (btnLogout) {

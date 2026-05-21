@@ -14,7 +14,7 @@ try:
     if edad < 18:
         print(f"Lo siento {nombre}, no tienes acceso al club.")
         raise ValueError("Acceso denegado: Menor de edad")
-    
+
     vip = input("¿Es miembro VIP? (s/n): ").lower()
 
     if edad >= 18 and vip == 's':

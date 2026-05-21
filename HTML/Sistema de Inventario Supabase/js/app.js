@@ -1,6 +1,3 @@
-// ============================================================
-//  app.js — Punto de entrada del inventario
-// ============================================================
 import { mostrarProductos, agregarProducto, actualizarProducto, resetFormulario } from './crud.js';
 import { obtenerCategorias }  from './categorizar.js';
 import { obtenerProveedores } from './proveedores.js';
@@ -9,9 +6,8 @@ import * as crud from './crud.js';
 const btnAgregar         = document.getElementById('btnAgregar');
 const btnCancelarEdicion = document.getElementById('btnCancelarEdicion');
 
-// ─── Poblar selects ──────────────────────────────────────────
 async function cargarSelects() {
-  // Categorías
+
   const selCat = document.getElementById('categoria_id');
   const categorias = await obtenerCategorias();
   selCat.innerHTML = '<option value="">— Selecciona una categoría —</option>';
@@ -22,7 +18,6 @@ async function cargarSelects() {
     selCat.appendChild(o);
   });
 
-  // Proveedores
   const selProv = document.getElementById('proveedor_id');
   const proveedores = await obtenerProveedores();
   selProv.innerHTML = '<option value="">— Sin proveedor —</option>';
@@ -34,7 +29,6 @@ async function cargarSelects() {
   });
 }
 
-// ─── Enviar formulario ───────────────────────────────────────
 if (btnAgregar) {
   btnAgregar.addEventListener('click', async () => {
     const nombre        = document.getElementById('nombre').value.trim();
@@ -49,7 +43,6 @@ if (btnAgregar) {
     const categoria_id  = document.getElementById('categoria_id').value  ? Number(document.getElementById('categoria_id').value)  : null;
     const proveedor_id  = document.getElementById('proveedor_id').value  ? Number(document.getElementById('proveedor_id').value)  : null;
 
-    // Validaciones
     if (!nombre || !descripcion || isNaN(precio) || isNaN(cantidad)) {
       alert('Completa todos los campos obligatorios.'); return;
     }

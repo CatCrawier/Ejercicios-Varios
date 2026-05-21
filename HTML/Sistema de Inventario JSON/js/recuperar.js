@@ -1,6 +1,3 @@
-// ============================================================
-//  recuperar.js - Recuperacion local para JSON
-// ============================================================
 import { validarEmail } from './validaciones.js';
 
 const RECOVERY_KEY = 'inventario_json_recovery_email';

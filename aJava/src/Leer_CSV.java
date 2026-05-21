@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Leer_CSV {
     public static void main(String[] args) {
         System.out.println("Lectura de archivo CSV");
-        
+
         File archivo = new File("datos.csv");
 
         try {
@@ -12,7 +12,7 @@ public class Leer_CSV {
                 while (lector.hasNextLine()) {
                     String linea = lector.nextLine();
                     String[] campos = linea.split(";");
-                    
+
                     System.out.println("Leyendo fila: " + campos[0] + " " + campos[1] + " " + campos[2]);
                 }
             }
@@ -21,5 +21,5 @@ public class Leer_CSV {
         } catch (FileNotFoundException e) {
             System.out.println("Error al leer el archivo.");
         }
-    }    
+    }
 }

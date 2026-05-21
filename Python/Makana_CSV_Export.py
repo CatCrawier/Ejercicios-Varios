@@ -20,13 +20,11 @@ TABLAS = [
     "detalle_pedidos",
 ]
 
-
 def obtener_datos_tabla(cursor_bd, tabla):
     cursor_bd.execute(f"SELECT * FROM `{tabla}`")
     filas = cursor_bd.fetchall()
     columnas = [desc[0] for desc in cursor_bd.description]
     return filas, columnas
-
 
 def exportar_csv(archivo_csv, datos):
     with open(archivo_csv, "w", newline="", encoding="utf-8-sig") as archivo:
@@ -36,7 +34,6 @@ def exportar_csv(archivo_csv, datos):
             writer.writerow(columnas)
             writer.writerows(filas)
             writer.writerow([])
-
 
 def principal():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -80,7 +77,6 @@ def principal():
         if conn is not None and conn.is_connected():
             conn.close()
             print("Conexion cerrada.")
-
 
 if __name__ == "__main__":
     principal()

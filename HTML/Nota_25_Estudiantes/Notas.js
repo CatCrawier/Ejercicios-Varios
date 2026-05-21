@@ -1,6 +1,3 @@
-// Notas de 25 estudiantes en Matemáticas, Estadística e Informática
-// Autor: Adrian Vasquez Perez
-
 function obtenerNotaValida(materia) {
     while (true) {
         let entrada = prompt(`Nota ${materia}:`);

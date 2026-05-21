@@ -37,7 +37,7 @@ def ventana_suma():
     txt1.pack()
     txt2.pack()
     boton1.pack()
-    
+
 menu_inicio = tk.Menu(barra_menu, tearoff=0)
 barra_menu.add_cascade(label="Inicio", menu=menu_inicio)
 menu_inicio.add_command(label="Salir", command=salir)

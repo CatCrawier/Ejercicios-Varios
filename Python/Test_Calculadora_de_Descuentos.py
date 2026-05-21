@@ -6,7 +6,6 @@ print("=" * 60)
 print("PRUEBAS CON VALORES ALEATORIOS")
 print("=" * 60)
 
-# Primera prueba aleatoria
 print("=" * 60)
 print("PRIMERA PRUEBA CON VALORES ALEATORIOS")
 print("=" * 60)
@@ -28,7 +27,6 @@ resultado = subprocess.run(
 )
 print(resultado.stdout)
 
-# Segunda prueba aleatoria
 print("=" * 60)
 print("SEGUNDA PRUEBA CON VALORES ALEATORIOS")
 print("=" * 60)
@@ -51,7 +49,6 @@ resultado = subprocess.run(
 )
 print(resultado.stdout)
 
-# Tercera prueba aleatoria
 print("=" * 60)
 print("TERCERA PRUEBA CON VALORES ALEATORIOS")
 print("=" * 60)

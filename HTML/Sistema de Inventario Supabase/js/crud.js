@@ -1,6 +1,3 @@
-// ============================================================
-//  crud.js — Operaciones CRUD con Supabase
-// ============================================================
 import { supabase }   from './supabase.js';
 import { confirmar }  from './confirmar.js';
 
@@ -8,7 +5,6 @@ let editandoId      = null;
 let filtroCategoria = 'todas';
 let _allProductos   = [];
 
-// ─── Helpers ─────────────────────────────────────────────────
 function formatPrecio(valor) {
   return Number(valor).toLocaleString('es-CO', {
     style: 'currency', currency: 'COP', maximumFractionDigits: 0,
@@ -24,7 +20,6 @@ function mostrarMensaje(msg, tipo = 'success') {
   toast._timer = setTimeout(() => toast.classList.remove('toast--visible'), 3500);
 }
 
-// ─── Registrar movimiento de inventario ──────────────────────
 async function registrarMovimiento(producto_id, cantidad_anterior, cantidad_nueva, motivo = 'Edición manual') {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) return;
@@ -45,7 +40,6 @@ async function registrarMovimiento(producto_id, cantidad_anterior, cantidad_nuev
   });
 }
 
-// ─── Barra de filtros ─────────────────────────────────────────
 function renderizarFiltros(productos) {
   const barra = document.getElementById('barraFiltros');
   if (!barra) return;
@@ -69,7 +63,6 @@ function renderizarFiltros(productos) {
   });
 }
 
-// ─── Tarjetas ────────────────────────────────────────────────
 function renderizarTarjetas(productos) {
   const contenedor = document.getElementById('contenedorProductos');
   if (!contenedor) return;
@@ -142,7 +135,6 @@ function renderizarTarjetas(productos) {
   });
 }
 
-// ─── Cargar productos (solo activos) ─────────────────────────
 export async function mostrarProductos() {
   const contenedor = document.getElementById('contenedorProductos');
   if (!contenedor) return;
@@ -177,7 +169,6 @@ export async function mostrarProductos() {
   renderizarTarjetas(_allProductos);
 }
 
-// ─── Agregar ──────────────────────────────────────────────────
 export async function agregarProducto(producto) {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) { window.location.href = 'login.html'; return; }
@@ -192,14 +183,13 @@ export async function agregarProducto(producto) {
     mostrarMensaje('Error al agregar producto.', 'error');
     console.error(error);
   } else {
-    // Registrar entrada inicial
+
     await registrarMovimiento(data.id, 0, data.cantidad, 'Alta de producto');
     mostrarMensaje('Producto agregado correctamente. ✅');
     await mostrarProductos();
   }
 }
 
-// ─── Desactivar (soft delete) ─────────────────────────────────
 async function desactivarProducto(id, nombre) {
   const ok = await confirmar({
     titulo:   'Desactivar producto',
@@ -221,7 +211,6 @@ async function desactivarProducto(id, nombre) {
   }
 }
 
-// ─── Eliminar definitivamente ─────────────────────────────────
 async function eliminarProductoDefinitivo(id, nombre) {
   const ok = await confirmar({
     titulo:   'Eliminar producto definitivamente',
@@ -242,7 +231,6 @@ async function eliminarProductoDefinitivo(id, nombre) {
   }
 }
 
-// ─── Cargar en formulario para editar ────────────────────────
 function cargarParaEditar(producto) {
   editandoId = producto.id;
 
@@ -271,9 +259,8 @@ function cargarParaEditar(producto) {
   document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
 }
 
-// ─── Actualizar ───────────────────────────────────────────────
 export async function actualizarProducto(id, datos) {
-  // Obtener cantidad anterior para registrar movimiento
+
   const productoAnterior = _allProductos.find(p => p.id === id);
   const cantidadAnterior = productoAnterior?.cantidad ?? datos.cantidad;
 
@@ -283,7 +270,7 @@ export async function actualizarProducto(id, datos) {
     mostrarMensaje('Error al actualizar producto.', 'error');
     console.error(error);
   } else {
-    // Registrar movimiento si cambió la cantidad
+
     if (cantidadAnterior !== datos.cantidad) {
       await registrarMovimiento(id, cantidadAnterior, datos.cantidad, 'Edición de producto');
     }
@@ -293,7 +280,6 @@ export async function actualizarProducto(id, datos) {
   }
 }
 
-// ─── Reset formulario ─────────────────────────────────────────
 export function resetFormulario() {
   editandoId = null;
   ['nombre','descripcion','sku','precio','precio_costo',

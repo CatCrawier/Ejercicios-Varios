@@ -37,17 +37,17 @@ def mostrar_menu():
 def main():
     while True:
         opcion = mostrar_menu()
-        
+
         if opcion == "1":
             todas = [n for e in estudiantes for n in e["Notas"]]
             print(f"\nPromedio general del curso: {calcular_promedio(todas):.2f}")
-            
+
         elif opcion == "2":
             generar_reporte(estudiantes)
-            
+
         elif opcion == "3":
             listar_todos(estudiantes)
-            
+
         elif opcion == "4":
             nombre = input("Nombre del nuevo estudiante: ")
             try:
@@ -60,7 +60,7 @@ def main():
                     print("Operación cancelada: alguna nota no es válida.")
             except ValueError:
                 print("Error: Ingrese valores numéricos válidos.")
-            
+
         elif opcion == "5":
             nombre = input("Nombre del estudiante a eliminar: ")
             antes = len(estudiantes)
@@ -69,7 +69,7 @@ def main():
                 print(f"Estudiante '{nombre}' eliminado.")
             else:
                 print("Estudiante no encontrado.")
-            
+
         elif opcion == "6":
             nombre = input("Nombre del estudiante: ")
             est = next((e for e in estudiantes if e["Nombre"] == nombre), None)
@@ -88,7 +88,7 @@ def main():
                     print("Error: Entrada no válida.")
             else:
                 print("Estudiante no encontrado.")
-                
+
         elif opcion == "7":
             nombre = input("Nombre del estudiante al que desea agregar notas: ")
             est = next((e for e in estudiantes if e["Nombre"] == nombre), None)
@@ -122,7 +122,7 @@ def main():
                     print("Error: Entrada no válida.")
             else:
                 print("Estudiante no encontrado.")
-            
+
         elif opcion == "9":
             print("Saliendo del programa...")
             break

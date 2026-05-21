@@ -1,6 +1,3 @@
-// ============================================================
-//  reset.js — Actualización de contraseña tras enlace de correo
-// ============================================================
 import { supabase } from './supabase.js';
 
 function showError(msg) {
@@ -16,17 +13,14 @@ function setLoading(btn, loading) {
     btn.textContent = loading ? 'Guardando...' : btn.dataset.originalText;
 }
 
-// Supabase incluye el token en el hash de la URL (#access_token=...&type=recovery)
-// Al cargar la página hay que verificar que la sesión sea válida y de tipo "recovery"
 supabase.auth.onAuthStateChange(async (event, session) => {
     if (event === 'PASSWORD_RECOVERY') {
-        // El enlace es válido — mostrar formulario (ya visible por defecto)
+
         document.getElementById('formReset').style.display = 'block';
         document.getElementById('mensajeInvalido').style.display = 'none';
     }
 });
 
-// Si después de un momento no hay evento PASSWORD_RECOVERY, el enlace es inválido
 setTimeout(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
         if (!session) {
@@ -36,7 +30,6 @@ setTimeout(() => {
     });
 }, 1500);
 
-// ─── Guardar nueva contraseña ─────────────────────────────────
 const btnReset = document.getElementById('btnReset');
 
 if (btnReset) {
@@ -71,7 +64,7 @@ if (btnReset) {
         } else {
             document.getElementById('formReset').style.display    = 'none';
             document.getElementById('mensajeExito').style.display = 'block';
-            // Cerrar sesión para que el usuario haga login con la nueva contraseña
+
             await supabase.auth.signOut();
         }
     });

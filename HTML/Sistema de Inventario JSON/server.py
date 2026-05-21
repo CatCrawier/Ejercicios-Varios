@@ -4,11 +4,9 @@ import json
 import os
 import sys
 
-
 ROOT = Path(__file__).resolve().parent
 DB_FILE = ROOT / "data" / "inventario.json"
 PORT = int(sys.argv[1] if len(sys.argv) > 1 else os.environ.get("PORT", "5502"))
-
 
 class InventoryHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -68,7 +66,6 @@ class InventoryHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
-
 
 if __name__ == "__main__":
     server = ThreadingHTTPServer(("localhost", PORT), InventoryHandler)

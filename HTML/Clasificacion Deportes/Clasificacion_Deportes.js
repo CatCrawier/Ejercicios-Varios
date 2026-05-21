@@ -1,5 +1,3 @@
-// Hacer un programa que clasifique 10 personas segun el deporte que practican, los deportes son: Ajedrez, Futbol, Atletismo, Gimnasia y Natacion. Se debe mostrar la cantidad de personas que practican cada deporte.
-
 let ajedrez, futbol, atletismo, gimnasia, natacion, n, deporte;
 
 ajedrez = 0;
@@ -21,7 +19,7 @@ document.getElementById("contenedor").innerHTML +=
 for (n = 1; n <= 10; n++) {
 let input = prompt("Digite el numero del deporte que practica " + "persona " + n + " (1-5)");
     let deporte = parseInt(input);
-    
+
     while (isNaN(deporte) || input === "" || deporte < 1 || deporte > 5) {
         if (isNaN(deporte) || input === "") {
             input = prompt("Por favor digite un numero entre 1 y 5");
@@ -30,7 +28,7 @@ let input = prompt("Digite el numero del deporte que practica " + "persona " + n
         }
         deporte = parseInt(input);
     }
-    
+
     switch (deporte) {
         case 1:
             ajedrez++;

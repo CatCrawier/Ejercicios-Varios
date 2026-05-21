@@ -1,6 +1,3 @@
-// ============================================================
-//  reset.js - Actualizacion local de contrasena
-// ============================================================
 import { signOut, updatePassword } from './jsonDB.js';
 import { validarPassword } from './validaciones.js';
 

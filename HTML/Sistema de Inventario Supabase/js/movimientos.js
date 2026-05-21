@@ -1,6 +1,3 @@
-// ============================================================
-//  movimientos.js — CRUD de movimientos de inventario
-// ============================================================
 import { supabase }  from './supabase.js';
 import { confirmar } from './confirmar.js';
 
@@ -26,7 +23,6 @@ function formatCantidad(tipo, cantidad) {
   return `<span class="badge badge--min">${abs}</span>`;
 }
 
-// ─── Poblar select de productos ───────────────────────────────
 async function cargarSelectProductosMov() {
   const sel = document.getElementById('movProductoId');
   if (!sel) return;
@@ -48,7 +44,6 @@ async function cargarSelectProductosMov() {
   });
 }
 
-// ─── Render tabla ─────────────────────────────────────────────
 function renderTablaMovimientos(movimientos) {
   const tbody = document.getElementById('tbodyMovimientos');
   if (!tbody) return;
@@ -77,7 +72,6 @@ function renderTablaMovimientos(movimientos) {
   );
 }
 
-// ─── Cargar movimientos ───────────────────────────────────────
 export async function mostrarMovimientos(filtros = {}) {
   const tbody = document.getElementById('tbodyMovimientos');
   if (!tbody) return;
@@ -101,7 +95,6 @@ export async function mostrarMovimientos(filtros = {}) {
   renderTablaMovimientos(data ?? []);
 }
 
-// ─── Agregar movimiento manual ────────────────────────────────
 async function agregarMovimientoManual() {
   const producto_id       = Number(document.getElementById('movProductoIdForm').value);
   const tipo              = document.getElementById('movTipo').value;
@@ -111,7 +104,6 @@ async function agregarMovimientoManual() {
   if (!producto_id) { alert('Selecciona un producto.'); return; }
   if (!cantidad || cantidad <= 0) { alert('La cantidad debe ser mayor a 0.'); return; }
 
-  // Obtener cantidad actual
   const { data: prod, error: errProd } = await supabase
     .from('productos')
     .select('cantidad')
@@ -139,7 +131,6 @@ async function agregarMovimientoManual() {
 
   if (error) { mostrarMensaje('Error al registrar movimiento.', 'error'); console.error(error); return; }
 
-  // Actualizar stock del producto
   await supabase.from('productos').update({ cantidad: cantidadNueva }).eq('id', producto_id);
 
   mostrarMensaje(`Movimiento registrado. Stock: ${cantidadAnterior} → ${cantidadNueva} ✅`);
@@ -147,7 +138,6 @@ async function agregarMovimientoManual() {
   await mostrarMovimientos();
 }
 
-// ─── Eliminar movimiento ──────────────────────────────────────
 async function eliminarMovimiento(id) {
   const ok = await confirmar({
     titulo:   'Eliminar movimiento',
@@ -161,7 +151,6 @@ async function eliminarMovimiento(id) {
   else { mostrarMensaje('Movimiento eliminado. 🗑️'); await mostrarMovimientos(); }
 }
 
-// ─── Reset formulario manual ──────────────────────────────────
 function resetFormMov() {
   ['movProductoIdForm','movCantidad','movMotivo'].forEach(id => {
     const el = document.getElementById(id);
@@ -171,12 +160,10 @@ function resetFormMov() {
   if (sel) sel.value = 'entrada';
 }
 
-// ─── Inicializar ──────────────────────────────────────────────
 export function initMovimientos() {
   cargarSelectProductosMov();
   mostrarMovimientos();
 
-  // Poblar select del formulario de nuevo movimiento
   const selForm = document.getElementById('movProductoIdForm');
   if (selForm) {
     supabase.from('productos').select('id, nombre').eq('activo', true).order('nombre').then(({ data }) => {
@@ -192,7 +179,6 @@ export function initMovimientos() {
 
   document.getElementById('btnGuardarMov')?.addEventListener('click', agregarMovimientoManual);
 
-  // Filtros
   document.getElementById('filtroMovProducto')?.addEventListener('change', aplicarFiltrosMov);
   document.getElementById('filtroMovTipo')?.addEventListener('change', aplicarFiltrosMov);
 }

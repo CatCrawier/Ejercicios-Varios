@@ -1,6 +1,3 @@
-// ============================================================
-//  categorizar.js - Carga categorias desde JSON local
-// ============================================================
 import { listCategorias } from './jsonDB.js';
 
 export async function obtenerCategorias() {

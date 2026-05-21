@@ -5,16 +5,16 @@ def agregar_producto():
     if not codigo:
         print("Error: Código vacío.")
         return
-    
+
     if codigo in inventario:
         print("Error: Código ya existe.")
         return
-    
+
     nombre = input("Nombre: ").strip()
     if not nombre:
         print("Error: Nombre vacío.")
         return
-    
+
     while True:
         try:
             cantidad = int(input("Cantidad: "))
@@ -24,7 +24,7 @@ def agregar_producto():
             break
         except ValueError:
             print("Cantidad inválida.")
-    
+
     while True:
         try:
             precio = float(input("Precio: "))
@@ -34,7 +34,7 @@ def agregar_producto():
             break
         except ValueError:
             print("Precio inválido.")
-    
+
     inventario[codigo] = [nombre, cantidad, precio]
     print("✓ Producto agregado.")
 
@@ -43,11 +43,11 @@ def eliminar_producto():
     if not codigo:
         print("Error: Código vacío.")
         return
-    
+
     if codigo not in inventario:
         print("Producto no encontrado.")
         return
-    
+
     del inventario[codigo]
     print("✓ Producto eliminado.")
 
@@ -56,12 +56,12 @@ def actualizar_producto():
     if codigo not in inventario:
         print("Producto no encontrado.")
         return
-    
+
     print("Presione Enter para no cambiar:")
     nuevo_nombre = input("Nuevo nombre: ").strip()
     if nuevo_nombre:
         inventario[codigo][0] = nuevo_nombre
-    
+
     while True:
         nueva_cant = input("Nueva cantidad: ").strip()
         if nueva_cant:
@@ -75,7 +75,7 @@ def actualizar_producto():
                 print("Inválido")
         else:
             break
-    
+
     while True:
         nuevo_precio = input("Nuevo precio: ").strip()
         if nuevo_precio:
@@ -89,7 +89,7 @@ def actualizar_producto():
                 print("Inválido")
         else:
             break
-    
+
     print("✓ Actualizado.")
 
 def buscar_producto():
@@ -97,13 +97,13 @@ def buscar_producto():
     if not termino:
         print("Término vacío.")
         return
-    
+
     encontrados = []
     for codigo in inventario:
         nombre = inventario[codigo][0].lower()
         if termino in codigo.lower() or termino in nombre:
             encontrados.append(codigo)
-    
+
     if encontrados:
         print(f"\n{len(encontrados)} resultado(s):")
         for codigo in encontrados:
@@ -116,7 +116,7 @@ def listar_inventario():
     if not inventario:
         print("Inventario vacío.")
         return
-    
+
     print("\nINVENTARIO:")
     print("-" * 50)
     print("Código     Nombre              Cant  Precio")
@@ -138,13 +138,13 @@ def menu_principal():
         print("\n" + "="*30)
         print("1. Agregar")
         print("2. Eliminar")
-        print("3. Actualizar") 
+        print("3. Actualizar")
         print("4. Buscar")
         print("5. Listar")
         print("6. Total")
         print("7. Salir")
         opcion = input("Opción: ").strip()
-        
+
         if opcion == "1":
             agregar_producto()
         elif opcion == "2":

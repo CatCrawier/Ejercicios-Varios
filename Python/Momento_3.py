@@ -5,12 +5,12 @@ from mysql.connector import Error
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': '', 
+    'password': '',
     'database': 'makana_pizza'
 }
 
 def conectar_db():
-    
+
     try:
         conn = mysql.connector.connect(**db_config)
         if conn.is_connected():
@@ -20,7 +20,7 @@ def conectar_db():
         return None
 
 def exportar_a_csv(nombre_archivo, cabeceras, datos):
-    
+
     try:
         with open(nombre_archivo, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
@@ -31,7 +31,7 @@ def exportar_a_csv(nombre_archivo, cabeceras, datos):
         print(f"\n[!] Error: El archivo '{nombre_archivo}' está abierto en otro programa (Excel). Ciérrelo e intente de nuevo.")
 
 def modulo_reportes():
-    
+
     conn = conectar_db()
     if not conn: return
     cursor = conn.cursor()
@@ -44,36 +44,36 @@ def modulo_reportes():
 
     try:
         opcion = int(input("Seleccione un reporte: "))
-        
+
         if opcion == 1:
-            
+
             cursor.execute("SELECT producto_id, nombre, precio FROM productos")
             datos = cursor.fetchall()
             exportar_a_csv("reporte_general_productos.csv", ["ID", "Nombre", "Precio"], datos)
 
         elif opcion == 2:
-            
+
             cursor.execute("SELECT categoria_id, nombre FROM categorias")
             categorias = cursor.fetchall()
             print("\nCategorías disponibles:")
             for cat in categorias: print(f"{cat[0]}. {cat[1]}")
-            
+
             id_cat = input("Ingrese el ID de la categoría a exportar: ")
             cursor.execute("SELECT nombre, precio FROM productos WHERE categoria_id = %s", (id_cat,))
             datos = cursor.fetchall()
             exportar_a_csv(f"productos_categoria_{id_cat}.csv", ["Producto", "Precio"], datos)
 
         elif opcion == 3:
-            
+
             query = """
-                SELECT estado, COUNT(*) as cantidad, SUM(total) as ingresos 
-                FROM pedidos 
+                SELECT estado, COUNT(*) as cantidad, SUM(total) as ingresos
+                FROM pedidos
                 GROUP BY estado
             """
             cursor.execute(query)
             datos = cursor.fetchall()
             exportar_a_csv("estadisticas_ventas.csv", ["Estado", "Cantidad Pedidos", "Total Ingresos"], datos)
-            
+
     except ValueError:
         print("[!] Error: Ingrese un número válido para el reporte.")
     finally:
@@ -81,7 +81,7 @@ def modulo_reportes():
         conn.close()
 
 def menu_principal():
-    
+
     while True:
         print("\n===============================")
         print("   MAKANA PIZZA - SISTEMA ADMIN")
@@ -89,9 +89,9 @@ def menu_principal():
         print("1. Ver Clientes Registrados")
         print("2. Generar Reportes (Exportar CSV)")
         print("3. Salir")
-        
+
         try:
-            
+
             opcion = int(input("\nSeleccione una opción: "))
 
             if opcion == 1:
@@ -103,16 +103,16 @@ def menu_principal():
                         print(f"Cliente: {nombre} | Tel: {telefono}")
                     cursor.close()
                     conn.close()
-            
+
             elif opcion == 2:
                 modulo_reportes()
-                
+
             elif opcion == 3:
                 print("Saliendo del sistema... ¡Buen día!")
                 break
             else:
                 print("[!] Opción no válida. Intente de nuevo.")
-                
+
         except ValueError:
             print("[!] Error de entrada: Por favor, ingrese solo números.")
 

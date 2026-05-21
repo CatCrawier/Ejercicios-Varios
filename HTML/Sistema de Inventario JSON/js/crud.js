@@ -1,6 +1,3 @@
-// ============================================================
-//  crud.js - Operaciones CRUD con JSON local
-// ============================================================
 import { confirmar } from './confirmar.js';
 import {
   addMovimiento,

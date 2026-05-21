@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Calculadora_Basica_Funciones {
-    
+
     public static String operaciones(String opcion, double num1, double num2) {
         switch (opcion) {
             case "1" -> {
@@ -29,7 +29,7 @@ public class Calculadora_Basica_Funciones {
         }
         return "Error: Opción no válida.";
     }
-    
+
     public static String menu(Scanner scanner) {
         System.out.println("\nSeleccione una operación:");
         System.out.println("\n1. Sumar");
@@ -40,7 +40,7 @@ public class Calculadora_Basica_Funciones {
         System.out.print("\nIngrese el número de la operación que desea realizar: ");
         return scanner.nextLine();
     }
-    
+
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Bienvenido a la Calculadora Básica");

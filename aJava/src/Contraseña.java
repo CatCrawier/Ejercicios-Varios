@@ -5,13 +5,13 @@ void main() {
         boolean acceso = false;
 
         String contraseña = "Hola";
-        
+
         int intentos = 3;
-        
+
         while(intentos > 0 && !acceso){
             System.out.print("Introduce la contraseña: ");
             String entrada = scanner.nextLine();
-            
+
             if (entrada.equals(contraseña)) {
                 acceso = true;
                 System.out.println("Acceso concedido.");

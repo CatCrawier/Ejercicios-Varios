@@ -1,6 +1,3 @@
-// ============================================================
-//  recuperar.js — Envío de correo de recuperación de contraseña
-// ============================================================
 import { supabase } from './supabase.js';
 
 function setLoading(btn, loading) {
@@ -49,7 +46,7 @@ if (btnRecuperar) {
             showError('Ocurrió un error. Verifica el correo e intenta de nuevo.');
             console.error(error);
         } else {
-            // Siempre mostrar mensaje de éxito (no revelar si el correo existe o no)
+
             showSuccess('Si ese correo está registrado, recibirás un enlace en unos minutos. Revisa también tu carpeta de spam.');
             btnRecuperar.disabled = true;
         }
