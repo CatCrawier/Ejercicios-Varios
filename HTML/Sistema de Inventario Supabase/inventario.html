@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario — Sistema de Inventario</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="page-wrapper">
+
+  <header>
+    <h1>📦 Sistema de Inventario</h1>
+    <button id="btnLogout" class="btn-danger">Cerrar sesión</button>
+  </header>
+
+  <!-- Pestañas de navegación -->
+  <nav class="tabs-nav">
+    <button class="tab-btn tab-btn--active" data-tab="tab-productos">🛍️ Productos</button>
+    <button class="tab-btn" data-tab="tab-categorias">🏷️ Categorías</button>
+    <button class="tab-btn" data-tab="tab-proveedores">🏭 Proveedores</button>
+    <button class="tab-btn" data-tab="tab-movimientos">📊 Movimientos</button>
+  </nav>
+
+  <main class="page-content">
+
+    <!-- TAB 1: PRODUCTOS -->
+    <div id="tab-productos" class="tab-panel tab-panel--active">
+      <section class="card">
+        <h2 class="section-title">➕ Registrar Producto</h2>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="nombre">Nombre <span class="req">*</span></label>
+            <input type="text" id="nombre" placeholder="Ej: Leche entera 1L">
+          </div>
+          <div class="form-group">
+            <label for="sku">SKU / Código de barras <span class="opt">(opcional)</span></label>
+            <input type="text" id="sku" placeholder="Ej: 7702048000123">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="descripcion">Descripción <span class="req">*</span></label>
+          <textarea id="descripcion" placeholder="Describe el producto brevemente..."></textarea>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="precio">Precio de venta ($) <span class="req">*</span></label>
+            <input type="number" id="precio" placeholder="0.00" min="0" step="0.01">
+          </div>
+          <div class="form-group">
+            <label for="precio_costo">Precio de costo ($) <span class="opt">(opcional)</span></label>
+            <input type="number" id="precio_costo" placeholder="0.00" min="0" step="0.01">
+          </div>
+        </div>
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label for="cantidad">Cantidad <span class="req">*</span></label>
+            <input type="number" id="cantidad" placeholder="0" min="0">
+          </div>
+          <div class="form-group">
+            <label for="stock_minimo">Stock mínimo <span class="opt">(opcional)</span></label>
+            <input type="number" id="stock_minimo" placeholder="0" min="0" value="0">
+          </div>
+          <div class="form-group">
+            <label for="unidad">Unidad <span class="req">*</span></label>
+            <select id="unidad">
+              <option value="unidad">Unidad</option>
+              <option value="kg">Kilogramo (kg)</option>
+              <option value="g">Gramo (g)</option>
+              <option value="L">Litro (L)</option>
+              <option value="mL">Mililitro (mL)</option>
+              <option value="caja">Caja</option>
+              <option value="paquete">Paquete</option>
+              <option value="docena">Docena</option>
+              <option value="par">Par</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="categoria_id">Categoría <span class="req">*</span></label>
+            <select id="categoria_id"><option value="">Cargando…</option></select>
+          </div>
+          <div class="form-group">
+            <label for="proveedor_id">Proveedor <span class="opt">(opcional)</span></label>
+            <select id="proveedor_id"><option value="">Cargando…</option></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="imagen">URL de imagen <span class="opt">(opcional)</span></label>
+          <input type="text" id="imagen" placeholder="https://...">
+        </div>
+        <div class="form-actions">
+          <button id="btnAgregar" class="btn">Agregar producto</button>
+          <button id="btnCancelarEdicion" class="btn btn-outline" style="display:none;">Cancelar edición</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="section-title">🗂️ Productos</h2>
+        <div id="barraFiltros" class="barra-filtros"></div>
+        <div id="contenedorProductos" class="grid-productos"></div>
+      </section>
+    </div>
+
+    <!-- TAB 2: CATEGORÍAS -->
+    <div id="tab-categorias" class="tab-panel">
+      <section class="card">
+        <h2 class="section-title">➕ Nueva Categoría</h2>
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label for="catNombre">Nombre <span class="req">*</span></label>
+            <input type="text" id="catNombre" placeholder="Ej: Lácteos">
+          </div>
+          <div class="form-group">
+            <label for="catEmoji">Emoji <span class="opt">(opcional)</span></label>
+            <input type="text" id="catEmoji" placeholder="🥛" maxlength="4">
+          </div>
+          <div class="form-group">
+            <label for="catDescripcion">Descripción <span class="opt">(opcional)</span></label>
+            <input type="text" id="catDescripcion" placeholder="Descripción breve">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button id="btnGuardarCat" class="btn">Agregar categoría</button>
+          <button id="btnCancelarCat" class="btn btn-outline" style="display:none;">Cancelar</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="section-title">🏷️ Categorías registradas</h2>
+        <div class="tabla-wrap">
+          <table class="tabla">
+            <thead><tr><th>Emoji</th><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr></thead>
+            <tbody id="tbodyCategorias"><tr><td colspan="4" class="loading-text">Cargando…</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 3: PROVEEDORES -->
+    <div id="tab-proveedores" class="tab-panel">
+      <section class="card">
+        <h2 class="section-title">➕ Nuevo Proveedor</h2>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="provNombre">Nombre <span class="req">*</span></label>
+            <input type="text" id="provNombre" placeholder="Ej: Distribuidora XYZ">
+          </div>
+          <div class="form-group">
+            <label for="provContacto">Persona de contacto <span class="opt">(opcional)</span></label>
+            <input type="text" id="provContacto" placeholder="Nombre del contacto">
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="provTelefono">Teléfono <span class="opt">(opcional)</span></label>
+            <input type="text" id="provTelefono" placeholder="Ej: 601 234 5678">
+          </div>
+          <div class="form-group">
+            <label for="provEmail">Email <span class="opt">(opcional)</span></label>
+            <input type="email" id="provEmail" placeholder="proveedor@correo.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="provDireccion">Dirección <span class="opt">(opcional)</span></label>
+          <input type="text" id="provDireccion" placeholder="Calle, ciudad...">
+        </div>
+        <div class="form-group">
+          <label for="provNotas">Notas <span class="opt">(opcional)</span></label>
+          <textarea id="provNotas" placeholder="Condiciones de pago, tiempos de entrega..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button id="btnGuardarProv" class="btn">Agregar proveedor</button>
+          <button id="btnCancelarProv" class="btn btn-outline" style="display:none;">Cancelar</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="section-title">🏭 Proveedores registrados</h2>
+        <div class="tabla-wrap">
+          <table class="tabla">
+            <thead><tr><th>Nombre</th><th>Contacto</th><th>Teléfono</th><th>Email</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody id="tbodyProveedores"><tr><td colspan="6" class="loading-text">Cargando…</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 4: MOVIMIENTOS -->
+    <div id="tab-movimientos" class="tab-panel">
+      <section class="card">
+        <h2 class="section-title">➕ Registrar Movimiento Manual</h2>
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label for="movProductoIdForm">Producto <span class="req">*</span></label>
+            <select id="movProductoIdForm"><option value="">Cargando…</option></select>
+          </div>
+          <div class="form-group">
+            <label for="movTipo">Tipo <span class="req">*</span></label>
+            <select id="movTipo">
+              <option value="entrada">📥 Entrada</option>
+              <option value="salida">📤 Salida</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="movCantidad">Cantidad <span class="req">*</span></label>
+            <input type="number" id="movCantidad" placeholder="0" min="1">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="movMotivo">Motivo <span class="opt">(opcional)</span></label>
+          <input type="text" id="movMotivo" placeholder="Ej: Compra a proveedor, Venta, Ajuste...">
+        </div>
+        <div class="form-actions">
+          <button id="btnGuardarMov" class="btn">Registrar movimiento</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="section-title">📊 Historial de movimientos</h2>
+        <div class="filtros-mov">
+          <div class="form-group">
+            <label for="filtroMovProducto">Filtrar por producto</label>
+            <select id="filtroMovProducto"><option value="">— Todos —</option></select>
+          </div>
+          <div class="form-group">
+            <label for="filtroMovTipo">Filtrar por tipo</label>
+            <select id="filtroMovTipo">
+              <option value="">— Todos —</option>
+              <option value="entrada">📥 Entrada</option>
+              <option value="salida">📤 Salida</option>
+            </select>
+          </div>
+        </div>
+        <div class="tabla-wrap">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>Fecha</th><th>Producto</th><th>Tipo</th><th>Cantidad</th>
+                <th>Stock (ant → nuevo)</th><th>Motivo</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyMovimientos"><tr><td colspan="7" class="loading-text">Cargando…</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<!-- Modal de confirmación -->
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal">
+    <h3 id="modalTitulo" class="modal-titulo"></h3>
+    <p  id="modalMensaje" class="modal-mensaje"></p>
+    <div class="modal-acciones">
+      <button id="modalBtnCancelar"  class="btn btn-outline">Cancelar</button>
+      <button id="modalBtnConfirmar" class="btn btn-modal-confirmar btn-modal--danger">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/app.js"></script>
+<script type="module">
+  import { initCategorias }  from './js/categorias.js';
+  import { initProveedores } from './js/proveedores_crud.js';
+  import { initMovimientos } from './js/movimientos.js';
+
+  const tabBtns    = document.querySelectorAll('.tab-btn');
+  const tabPanels  = document.querySelectorAll('.tab-panel');
+  const initialized = new Set(['tab-productos']);
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('tab-btn--active'));
+      tabPanels.forEach(p => p.classList.remove('tab-panel--active'));
+      btn.classList.add('tab-btn--active');
+      document.getElementById(tabId)?.classList.add('tab-panel--active');
+
+      if (!initialized.has(tabId)) {
+        initialized.add(tabId);
+        if (tabId === 'tab-categorias')  initCategorias();
+        if (tabId === 'tab-proveedores') initProveedores();
+        if (tabId === 'tab-movimientos') initMovimientos();
+      }
+    });
+  });
+</script>
+</body>
+</html>

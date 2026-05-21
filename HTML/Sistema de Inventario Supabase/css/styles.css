@@ -1,0 +1,1015 @@
+/* =========================================
+   Design Tokens
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --color-primary:        #1560BD;
+    --color-primary-dark:   #0E407D;
+    --color-primary-light:  #D2E4FA;
+    --color-primary-hover:  #1251a3;
+
+    --color-bg:             #f0f5fb;
+    --color-surface:        #ffffff;
+    --color-border:         #DAE1E6;
+    --color-border-focus:   #1560BD;
+
+    --color-text:           #2D3942;
+    --color-text-muted:     #708090;
+    --color-text-placeholder: #9FAAB5;
+
+    --color-danger:         #dc2626;
+    --color-danger-dark:    #b91c1c;
+    --color-warning:        #f59e0b;
+    --color-warning-dark:   #d97706;
+
+    --radius-sm:            6px;
+    --radius-md:            12px;
+    --radius-lg:            18px;
+
+    --shadow-sm:            0 1px 3px rgba(54,69,79,0.08);
+    --shadow-md:            0 4px 24px rgba(54,69,79,0.10);
+    --shadow-lg:            0 8px 40px rgba(21,96,189,0.14);
+
+    --font-sans:            'Inter', system-ui, -apple-system, sans-serif;
+    --transition:           0.2s ease;
+}
+
+/* =========================================
+   Reset & Base
+   ========================================= */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   Auth Layout (index.html & login.html)
+   ========================================= */
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(21, 96, 189, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(21, 96, 189, 0.05) 0%, transparent 50%),
+        var(--color-bg);
+}
+
+.contenedor-auth {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Brand block at top */
+.auth-brand {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-brand .auth-icon {
+    font-size: 2.8rem;
+    display: block;
+    margin-bottom: 12px;
+    line-height: 1;
+}
+
+.auth-brand h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+}
+
+.auth-brand p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* Auth section heading */
+.auth-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 16px;
+}
+
+/* Divider */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+}
+
+/* =========================================
+   Form Fields
+   ========================================= */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.825rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 6px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--color-text-placeholder);
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 3px rgba(21, 96, 189, 0.12);
+}
+
+/* =========================================
+   Buttons
+   ========================================= */
+.btn,
+.btn-danger,
+.btn-edit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.btn {
+    background: var(--color-primary);
+    color: #ffffff;
+}
+
+.btn:hover {
+    background: var(--color-primary-hover);
+    box-shadow: 0 4px 14px rgba(21, 96, 189, 0.30);
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+.btn-danger {
+    background: var(--color-danger);
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background: var(--color-danger-dark);
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.28);
+    transform: translateY(-1px);
+}
+
+.btn-edit {
+    background: var(--color-warning);
+    color: #ffffff;
+}
+
+.btn-edit:hover {
+    background: var(--color-warning-dark);
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   Inventory Page Layout
+   ========================================= */
+.page-wrapper {
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.page-content {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* Section titles */
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Two-column form grid */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 16px;
+}
+
+@media (max-width: 480px) {
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+    .page-wrapper {
+        padding: 16px;
+    }
+}
+
+/* Textarea */
+textarea {
+    resize: vertical;
+    min-height: 84px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* =========================================
+   Product Card Enhancements
+   ========================================= */
+.producto-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin: 6px 0 12px;
+    line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical; /* stylelint-disable-line */
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.producto-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.producto-price {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.producto-stock {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+}
+
+/* Empty state */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 56px 24px;
+    color: var(--color-text-muted);
+}
+
+.empty-state .empty-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.45;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   General Card
+   ========================================= */
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* =========================================
+   Header
+   ========================================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+/* =========================================
+   Inventory Grid
+   ========================================= */
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.producto {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.producto:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.producto img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+
+.producto h3 {
+    margin: 10px 0 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.botones {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+/* =========================================
+   Mensajes de error en formularios
+   ========================================= */
+.error-msg {
+    color: var(--color-danger);
+    font-size: 0.85rem;
+    margin: -8px 0 12px;
+    padding: 8px 12px;
+    background: rgba(220, 38, 38, 0.08);
+    border: 1px solid rgba(220, 38, 38, 0.25);
+    border-radius: var(--radius-sm);
+}
+
+/* =========================================
+   Toast de notificaciones
+   ========================================= */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    z-index: 9999;
+    max-width: 320px;
+}
+
+.toast--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast--success { background: #16a34a; }
+.toast--error   { background: var(--color-danger); }
+
+/* =========================================
+   Botón outline (cancelar edición)
+   ========================================= */
+.btn-outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1.5px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+    background: var(--color-primary-light);
+}
+
+/* =========================================
+   Estado de edición del botón principal
+   ========================================= */
+.btn--editing {
+    background: var(--color-warning) !important;
+    border-color: var(--color-warning-dark) !important;
+}
+
+.btn--editing:hover {
+    background: var(--color-warning-dark) !important;
+}
+
+/* =========================================
+   Form actions (botones del formulario)
+   ========================================= */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* =========================================
+   Estados de carga y error en el grid
+   ========================================= */
+.loading-text,
+.error-text {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 32px;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+.error-text { color: var(--color-danger); }
+
+/* =========================================
+   Select de categoría
+   ========================================= */
+select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23708090' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 3px rgba(21, 96, 189, 0.12);
+}
+
+/* Etiquetas req / opt en labels */
+.req { color: var(--color-danger); }
+.opt { color: var(--color-text-muted); font-weight: 400; }
+
+/* =========================================
+   Barra de filtros por categoría
+   ========================================= */
+.barra-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.filtro-btn {
+    padding: 5px 14px;
+    border-radius: 99px;
+    border: 1.5px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: var(--font-sans);
+}
+
+.filtro-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.filtro-btn.filtro--activo {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+}
+
+/* =========================================
+   Badge de categoría en tarjeta
+   ========================================= */
+.producto-img-wrap {
+    position: relative;
+}
+
+.producto-img-wrap img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    display: block;
+}
+
+.producto-placeholder {
+    width: 100%;
+    height: 200px;
+    border-radius: var(--radius-sm);
+    background: var(--color-primary-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.producto-placeholder-icon {
+    font-size: 2.5rem;
+    opacity: 0.5;
+}
+
+.producto-placeholder-text {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-primary-dark);
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.producto-categoria-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 99px;
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
+}
+
+/* =========================================
+   Grid de 3 columnas en formulario
+   ========================================= */
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .form-grid-3 { grid-template-columns: 1fr; }
+}
+
+/* =========================================
+   Cuerpo de tarjeta de producto
+   ========================================= */
+.producto-body {
+  padding: 4px 0 0;
+}
+
+.producto-sku {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-family: monospace;
+  margin: 4px 0 6px;
+}
+
+/* =========================================
+   Badges informativos en la tarjeta
+   ========================================= */
+.producto-extra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 10px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.badge--margen {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.badge--prov {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border: 1px solid #bfdbfe;
+}
+
+.badge--min {
+  background: #fef9c3;
+  color: #854d0e;
+  border: 1px solid #fde68a;
+}
+
+/* =========================================
+   Alerta de stock bajo
+   ========================================= */
+.producto--stock-bajo {
+  border-color: #fca5a5 !important;
+  box-shadow: 0 0 0 2px rgba(220,38,38,0.10) !important;
+}
+
+.producto-stock-alerta {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(220, 38, 38, 0.85);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  backdrop-filter: blur(4px);
+}
+
+.stock--bajo {
+  color: var(--color-danger) !important;
+  font-weight: 700;
+}
+
+/* =========================================
+   Pestañas de navegación
+   ========================================= */
+.tabs-nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 6px;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  flex: 1;
+  min-width: 130px;
+  padding: 9px 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.tab-btn--active {
+  background: var(--color-primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(21,96,189,0.25);
+}
+
+.tab-panel { display: none; }
+.tab-panel--active { display: block; }
+
+/* =========================================
+   Tablas
+   ========================================= */
+.tabla-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.tabla thead {
+  background: var(--color-bg);
+}
+
+.tabla th {
+  padding: 11px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.tabla td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  vertical-align: middle;
+}
+
+.tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla tbody tr:hover {
+  background: rgba(21,96,189,0.03);
+}
+
+.tabla-empty {
+  text-align: center;
+  padding: 40px !important;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.fila-inactiva {
+  opacity: 0.55;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+/* =========================================
+   Botones pequeños para tablas
+   ========================================= */
+.btn-sm {
+  padding: 5px 12px !important;
+  font-size: 0.8rem !important;
+}
+
+/* =========================================
+   Badge de peligro (salida)
+   ========================================= */
+.badge--danger {
+  background: #fee2e2;
+  color: var(--color-danger);
+  border: 1px solid #fca5a5;
+}
+
+/* Badge inactivo */
+.badge--inactivo {
+  background: #f3f4f6;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+/* =========================================
+   Filtros de movimientos
+   ========================================= */
+.filtros-mov {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filtros-mov .form-group {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 0;
+}
+
+/* =========================================
+   Mensaje de éxito en formularios
+   ========================================= */
+.success-msg {
+    color: #15803d;
+    font-size: 0.875rem;
+    padding: 10px 14px;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius-sm);
+    margin: -8px 0 12px;
+}
+
+/* =========================================
+   Link "¿Olvidaste tu contraseña?"
+   ========================================= */
+.forgot-link {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 0.85rem;
+}
+
+.forgot-link a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-link a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   Botón eliminar definitivamente
+   ========================================= */
+.btn-eliminar-def {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1.5px solid #dc2626;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-danger);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.btn-eliminar-def:hover {
+  background: var(--color-danger);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(220,38,38,0.28);
+  transform: translateY(-1px);
+}
+
+.btn-eliminar-def.btn-sm {
+  padding: 5px 12px !important;
+  font-size: 0.8rem !important;
+}
+
+/* =========================================
+   Modal de confirmación
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  padding: 16px;
+}
+
+.modal-overlay--visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px 28px 24px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-8px);
+  transition: transform 0.2s ease;
+}
+
+.modal-overlay--visible .modal {
+  transform: translateY(0);
+}
+
+.modal-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+
+.modal-mensaje {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.modal-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-modal-confirmar {
+  white-space: nowrap;
+}
+
+.btn-modal--danger {
+  background: var(--color-danger) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.btn-modal--danger:hover {
+  background: var(--color-danger-dark) !important;
+  box-shadow: 0 4px 14px rgba(220,38,38,0.28) !important;
+}
+
+.btn-modal--warning {
+  background: var(--color-warning) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.btn-modal--warning:hover {
+  background: var(--color-warning-dark) !important;
+}
