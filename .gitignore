@@ -9,3 +9,4 @@ __pycache__/
 **/config.js
 **/supabase.js
 .kombai/
+/HITTS_Poo/nbproject/private/
