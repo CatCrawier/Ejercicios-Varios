@@ -45,11 +45,4 @@ public class Persona {
     public void setSexo(char sexo) {
         this.sexo = sexo;
     }
-
-    public void mostrarDatos() {
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Apellido: " + apellido);
-        System.out.println("Edad: " + edad);
-        System.out.println("Sexo: " + sexo);
-    }
 }
