@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-    <classpathentry kind="src" path="HITTS_Poo/src"/>
-    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-    <classpathentry kind="output" path="HITTS_Poo/build/classes"/>
+	<classpathentry kind="src" path="HITTS_Poo/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Apolo/src"/>
+	<classpathentry kind="output" path="HITTS_Poo/build/classes"/>
 </classpath>
