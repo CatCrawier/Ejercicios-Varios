@@ -3,10 +3,10 @@
 .vscode/
 .sixth/
 venv/
-oracleJdk-26/
 __pycache__/
 *.json
 **/config.js
 **/supabase.js
 .kombai/
 /HITTS_Poo/nbproject/private/
+/oracleJdk-26/
