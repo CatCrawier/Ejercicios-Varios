@@ -3,18 +3,17 @@ import java.math.BigInteger
 fun main() {
     var numero = ""
 
-    for (entrada in Secuencia {
+    do {
         print("Ingrese un numero entero positivo de ocho cifras: ")
-        readln().trim()
-    }) {
+        val entrada = readln().trim()
+        val esValido = entrada.length == 8 && entrada.all { it.isDigit() } && entrada[0] != '0'
 
-        if (entrada.length == 8 && entrada.all { it.isDigit() } && entrada[0] != '0') {
+        if (esValido) {
             numero = entrada
-            break
+        } else {
+            println("Error: debe ingresar exactamente ocho cifras y la primera no puede ser 0.")
         }
-
-        println("Error: debe ingresar exactamente ocho cifras y la primera no puede ser 0.")
-    }
+    } while (!esValido)
 
     val digitos = numero.map { it.digitToInt() }
 
