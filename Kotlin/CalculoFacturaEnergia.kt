@@ -68,5 +68,6 @@ fun main() {
         else -> 0.0
     }
     
-    println("El costo de la factura es: $total - $subsidio")
+    val totalPagar = total - subsidio
+    println("El costo de la factura es: $totalPagar")
 }
