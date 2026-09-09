@@ -1,1 +1,1 @@
-groupingBy { it }
+(readlnOrNull()?.toIntOrNull())
