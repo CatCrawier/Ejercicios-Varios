@@ -1,6 +1,7 @@
 package com.example.reservascine
 
 import android.os.Bundle
+import android.util.Patterns
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -27,6 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -54,16 +56,17 @@ private data class Pelicula(
     val sinopsis: String,
     val horario: String,
     val precio: Int,
-    val color: Color
+    val color: Color,
+    val poster: Int
 )
 
 private val peliculas = listOf(
-    Pelicula("Aventura espacial", "Ciencia ficción", "2 h 05 min", "+12", "Una tripulación viaja para salvar su planeta.", "3:00 p. m. y 7:30 p. m.", 15000, Color(0xFF263E82)),
-    Pelicula("La última misión", "Acción", "1 h 48 min", "+15", "Un agente debe impedir un ataque antes del amanecer.", "4:15 p. m. y 8:45 p. m.", 18000, Color(0xFF8B2635)),
-    Pelicula("Risas en familia", "Comedia", "1 h 35 min", "Todo público", "Una familia convierte unas vacaciones en una gran aventura.", "2:00 p. m. y 5:30 p. m.", 12000, Color(0xFF36724A))
+    Pelicula("Aventura espacial", "Ciencia ficción", "2 h 05 min", "+12", "Una tripulación viaja para salvar su planeta.", "3:00 p. m. y 7:30 p. m.", 15000, Color(0xFF263E82), R.drawable.gemini_generated_image_nidgivnidgivnidg),
+    Pelicula("La última misión", "Acción", "1 h 48 min", "+15", "Un agente debe impedir un ataque antes del amanecer.", "4:15 p. m. y 8:45 p. m.", 18000, Color(0xFF8B2635), R.drawable.gemini_generated_image_5irqxs5irqxs5irq),
+    Pelicula("Risas en familia", "Comedia", "1 h 35 min", "Todo público", "Una familia convierte unas vacaciones en una gran aventura.", "2:00 p. m. y 5:30 p. m.", 12000, Color(0xFF36724A), R.drawable.gemini_generated_image_w1jfhow1jfhow1jf)
 )
 
-private enum class Pantalla { LOGIN, CARTELERA, COMPRA, RESUMEN }
+private enum class Pantalla { LOGIN, REGISTRO, CARTELERA, COMPRA, RESUMEN }
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,12 +84,28 @@ fun AppReservas() {
 
     Scaffold(modifier = Modifier.fillMaxSize()) { padding ->
         when (pantalla) {
-            Pantalla.LOGIN -> LoginScreen(Modifier.padding(padding)) { pantalla = Pantalla.CARTELERA }
-            Pantalla.CARTELERA -> Cartelera(Modifier.padding(padding)) { pelicula ->
-                peliculaSeleccionada = pelicula
-                entradas = 1
-                pantalla = Pantalla.COMPRA
-            }
+            Pantalla.LOGIN -> LoginScreen(
+                modifier = Modifier.padding(padding),
+                onLogin = { pantalla = Pantalla.CARTELERA },
+                onRegistrarse = { pantalla = Pantalla.REGISTRO }
+            )
+            Pantalla.REGISTRO -> RegistroScreen(
+                modifier = Modifier.padding(padding),
+                onRegistroExitoso = { pantalla = Pantalla.CARTELERA },
+                onVolver = { pantalla = Pantalla.LOGIN }
+            )
+            Pantalla.CARTELERA -> Cartelera(
+                modifier = Modifier.padding(padding),
+                onSeleccionar = { pelicula ->
+                    peliculaSeleccionada = pelicula
+                    entradas = 1
+                    pantalla = Pantalla.COMPRA
+                },
+                onCerrarSesion = {
+                    peliculaSeleccionada = null
+                    pantalla = Pantalla.LOGIN
+                }
+            )
             Pantalla.COMPRA -> peliculaSeleccionada?.let { pelicula ->
                 CompraScreen(
                     pelicula = pelicula,
@@ -109,7 +128,11 @@ fun AppReservas() {
 }
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, onLogin: () -> Unit) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    onLogin: () -> Unit,
+    onRegistrarse: () -> Unit
+) {
     var usuario by remember { mutableStateOf("") }
     var contrasena by remember { mutableStateOf("") }
     var mostrarError by remember { mutableStateOf(false) }
@@ -128,13 +151,67 @@ fun LoginScreen(modifier: Modifier = Modifier, onLogin: () -> Unit) {
             if (usuario.isNotBlank() && contrasena.isNotBlank()) onLogin() else mostrarError = true
         }) { Text("Iniciar sesión") }
         if (mostrarError) Text("Ingresa usuario y contraseña", color = MaterialTheme.colorScheme.error)
+        Spacer(Modifier.height(12.dp))
+        Text("¿Aún no tienes una cuenta?")
+        TextButton(onClick = onRegistrarse) { Text("Crear una cuenta") }
     }
 }
 
 @Composable
-private fun Cartelera(modifier: Modifier = Modifier, onSeleccionar: (Pelicula) -> Unit) {
+private fun RegistroScreen(
+    modifier: Modifier = Modifier,
+    onRegistroExitoso: () -> Unit,
+    onVolver: () -> Unit
+) {
+    var nombre by remember { mutableStateOf("") }
+    var correo by remember { mutableStateOf("") }
+    var contrasena by remember { mutableStateOf("") }
+    var confirmarContrasena by remember { mutableStateOf("") }
+    var error by remember { mutableStateOf<String?>(null) }
+
+    Column(
+        modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text("Crear cuenta", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+        Text("Regístrate para reservar tus entradas")
+        Spacer(Modifier.height(28.dp))
+        OutlinedTextField(nombre, { nombre = it; error = null }, label = { Text("Nombre") }, singleLine = true)
+        Spacer(Modifier.height(12.dp))
+        OutlinedTextField(correo, { correo = it; error = null }, label = { Text("Correo electrónico") }, singleLine = true)
+        Spacer(Modifier.height(12.dp))
+        OutlinedTextField(contrasena, { contrasena = it; error = null }, label = { Text("Contraseña") }, visualTransformation = PasswordVisualTransformation(), singleLine = true)
+        Text("Mínimo 8 caracteres, una mayúscula, un número y un símbolo.", style = MaterialTheme.typography.bodySmall)
+        Spacer(Modifier.height(12.dp))
+        OutlinedTextField(confirmarContrasena, { confirmarContrasena = it; error = null }, label = { Text("Confirmar contraseña") }, visualTransformation = PasswordVisualTransformation(), singleLine = true)
+        Spacer(Modifier.height(20.dp))
+        Button(onClick = {
+            error = when {
+                nombre.isBlank() || correo.isBlank() || contrasena.isBlank() || confirmarContrasena.isBlank() -> "Completa todos los campos"
+                !esCorreoValido(correo) -> "Ingresa un correo electrónico válido"
+                !esContrasenaSegura(contrasena) -> "La contraseña no cumple los requisitos de seguridad"
+                contrasena != confirmarContrasena -> "Las contraseñas no coinciden"
+                else -> null
+            }
+            if (error == null) onRegistroExitoso()
+        }, modifier = Modifier.fillMaxWidth()) { Text("Registrarme") }
+        error?.let { Text(it, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(top = 8.dp)) }
+        TextButton(onClick = onVolver) { Text("Ya tengo una cuenta") }
+    }
+}
+
+@Composable
+private fun Cartelera(
+    modifier: Modifier = Modifier,
+    onSeleccionar: (Pelicula) -> Unit,
+    onCerrarSesion: () -> Unit
+) {
     Column(modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
-        Text("Cartelera", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text("Cartelera", modifier = Modifier.weight(1f), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+            TextButton(onClick = onCerrarSesion) { Text("Cerrar sesión") }
+        }
         Text("Selecciona una película para comprar tus entradas.")
         peliculas.forEach { pelicula ->
             Spacer(Modifier.height(16.dp))
@@ -220,17 +297,25 @@ private fun ResumenCompra(pelicula: Pelicula, entradas: Int, modifier: Modifier,
 private fun PosterPelicula(pelicula: Pelicula, modifier: Modifier = Modifier) {
     Box(modifier = modifier.clip(RoundedCornerShape(12.dp)).background(pelicula.color), contentAlignment = Alignment.Center) {
         Image(
-            painter = painterResource(R.mipmap.ic_launcher),
-            contentDescription = "Imagen de ${pelicula.nombre}",
-            modifier = Modifier.size(54.dp),
-            contentScale = ContentScale.Fit
+            painter = painterResource(pelicula.poster),
+            contentDescription = "Póster de ${pelicula.nombre}",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
         )
-        Text("🎬", style = MaterialTheme.typography.headlineMedium)
     }
 }
 
 private fun formatearPrecio(valor: Int): String = "$" + String.format(Locale.US, "%,d", valor).replace(',', '.')
 
+private fun esCorreoValido(correo: String): Boolean =
+    Patterns.EMAIL_ADDRESS.matcher(correo.trim()).matches()
+
+private fun esContrasenaSegura(contrasena: String): Boolean =
+    contrasena.length >= 8 &&
+        contrasena.any { it.isUpperCase() } &&
+        contrasena.any { it.isDigit() } &&
+        contrasena.any { !it.isLetterOrDigit() }
+
 @Preview(showBackground = true)
 @Composable
-private fun PreviewLogin() { ReservasCineTheme { LoginScreen(onLogin = {}) } }
+private fun PreviewLogin() { ReservasCineTheme { LoginScreen(onLogin = {}, onRegistrarse = {}) } }
