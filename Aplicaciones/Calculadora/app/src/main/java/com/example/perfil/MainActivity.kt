@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -37,6 +37,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -88,7 +89,7 @@ fun AplicacionCalcEs() {
     var destino by remember { mutableStateOf(Destino.CALCULADORA) }
     var menuAbierto by remember { mutableStateOf(false) }
     var expresion by remember { mutableStateOf("") }
-    var respuesta by remember { mutableStateOf(0.0) }
+    var respuesta by remember { mutableDoubleStateOf(0.0) }
     var historial by remember { mutableStateOf(listOf<Calculo>()) }
     var tecladoCompleto by remember { mutableStateOf(true) }
 
@@ -188,7 +189,7 @@ private fun BotonCalculadora(etiqueta: String, modifier: Modifier, alPulsar: () 
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(containerColor = color, contentColor = if (especial && etiqueta == "SHIFT") Color(0xFF27200E) else Color.White),
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(1.dp)
+        contentPadding = PaddingValues(1.dp)
     ) { Text(etiqueta, fontSize = if (etiqueta.length > 4) 13.sp else 21.sp, maxLines = 1) }
 }
 
@@ -217,7 +218,7 @@ private fun textoTecla(etiqueta: String): String = when (etiqueta) {
     "x⁻¹" -> "^-1"; "Log" -> "log("; "Sin" -> "sin("; "Cos" -> "cos("; "Tan" -> "tan("
     "(-)" -> "-"; "Ans", "RCL" -> "ans"; "Exp", "ENG" -> "E"; "hyp" -> ""; "S⇔D" -> ""
     "SHIFT", "ALPHA", "◀", "▶", "MODE", "CALC", "∫dx", "▲", "▼", "x/y" -> ""
-    else -> label
+    else -> etiqueta
 }
 
 @Composable
@@ -240,8 +241,8 @@ private fun MenuNavegacion(
                 Spacer(Modifier.weight(1f))
                 HorizontalDivider(color = Color(0xFF3B3E44))
                 ElementoMenu("⚙", "Configuración", Destino.CONFIGURACION, destinoActual, alSeleccionarDestino)
-                OpcionTeclado("⌨", "Teclado completo", tecladoCompleto) { alCambiarTeclado(true); alSeleccionarDestino(Destino.CALCULADORA) }
-                OpcionTeclado("⌨", "Teclado compacto", !tecladoCompleto) { alCambiarTeclado(false); alSeleccionarDestino(Destino.CALCULADORA) }
+                OpcionTeclado("Teclado completo", tecladoCompleto) { alCambiarTeclado(true); alSeleccionarDestino(Destino.CALCULADORA) }
+                OpcionTeclado("Teclado compacto", !tecladoCompleto) { alCambiarTeclado(false); alSeleccionarDestino(Destino.CALCULADORA) }
             }
         }
         Spacer(Modifier.weight(1f))
@@ -260,9 +261,9 @@ private fun ElementoMenu(icono: String, titulo: String, destino: Destino, destin
 }
 
 @Composable
-private fun OpcionTeclado(icono: String, titulo: String, seleccionada: Boolean, alPulsar: () -> Unit) {
+private fun OpcionTeclado(titulo: String, seleccionada: Boolean, alPulsar: () -> Unit) {
     Row(Modifier.padding(horizontal = 14.dp, vertical = 4.dp).fillMaxWidth().background(if (seleccionada) Color(0xFF41365B) else Color.Transparent, RoundedCornerShape(6.dp)).clickable(onClick = alPulsar).padding(10.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(icono, modifier = Modifier.width(42.dp)); Text(titulo, color = if (seleccionada) Color(0xFFC6A8FF) else Color.White)
+        Text("⌨", modifier = Modifier.width(42.dp)); Text(titulo, color = if (seleccionada) Color(0xFFC6A8FF) else Color.White)
     }
 }
 
@@ -277,7 +278,7 @@ private fun EncabezadoSeccion(titulo: String, alAbrirMenu: () -> Unit) {
 
 @Composable
 private fun PantallaFormulas(titulo: String, grupos: List<Pair<String, List<Pair<String, String>>>>, alAbrirMenu: () -> Unit) {
-    var expandido by remember { mutableStateOf<String?>(grupos.firstOrNull()?.first) }
+    var expandido by remember { mutableStateOf(grupos.firstOrNull()?.first) }
     Column(Modifier.fillMaxSize()) {
         EncabezadoSeccion(titulo, alAbrirMenu)
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
