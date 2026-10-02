@@ -57,13 +57,22 @@ import kotlin.math.abs
 import kotlin.math.acos
 import kotlin.math.asin
 import kotlin.math.atan
+import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.ln
 import kotlin.math.log10
+import kotlin.math.cosh
+import kotlin.math.exp
+import kotlin.math.floor
+import kotlin.math.hypot
 import kotlin.math.pow
+import kotlin.math.round
 import kotlin.math.sin
+import kotlin.math.sinh
 import kotlin.math.sqrt
 import kotlin.math.tan
+import kotlin.math.tanh
+import kotlin.random.Random
 
 private val Tinta = Color(0xFF15171C)
 private val Panel = Color(0xFF26282F)
@@ -90,6 +99,10 @@ fun AplicacionCalcEs() {
     var menuAbierto by remember { mutableStateOf(false) }
     var expresion by remember { mutableStateOf("") }
     var respuesta by remember { mutableDoubleStateOf(0.0) }
+    var memoria by remember { mutableDoubleStateOf(0.0) }
+    var preAns by remember { mutableDoubleStateOf(0.0) }
+    var shift by remember { mutableStateOf(false) }
+    var alpha by remember { mutableStateOf(false) }
     var historial by remember { mutableStateOf(listOf<Calculo>()) }
     var tecladoCompleto by remember { mutableStateOf(true) }
 
@@ -99,10 +112,18 @@ fun AplicacionCalcEs() {
                 Destino.CALCULADORA -> PantallaCalculadora(
                     expresion = expresion,
                     respuesta = respuesta,
+                    memoria = memoria,
+                    preAns = preAns,
+                    shift = shift,
+                    alpha = alpha,
                     tecladoCompleto = tecladoCompleto,
                     alAbrirMenu = { menuAbierto = true },
                     alCambiarExpresion = { expresion = it },
                     alCambiarRespuesta = { respuesta = it },
+                    alCambiarMemoria = { memoria = it },
+                    alCambiarPreAns = { preAns = it },
+                    alCambiarShift = { shift = it },
+                    alCambiarAlpha = { alpha = it },
                     alGuardar = { calculo -> historial = listOf(calculo) + historial }
                 )
                 Destino.MATEMATICAS -> PantallaFormulas("Fórmulas matemáticas", gruposFormulasMatematicas()) { menuAbierto = true }
@@ -128,16 +149,27 @@ fun AplicacionCalcEs() {
 private fun PantallaCalculadora(
     expresion: String,
     respuesta: Double,
+    memoria: Double,
+    preAns: Double,
+    shift: Boolean,
+    alpha: Boolean,
     tecladoCompleto: Boolean,
     alAbrirMenu: () -> Unit,
     alCambiarExpresion: (String) -> Unit,
     alCambiarRespuesta: (Double) -> Unit,
+    alCambiarMemoria: (Double) -> Unit,
+    alCambiarPreAns: (Double) -> Unit,
+    alCambiarShift: (Boolean) -> Unit,
+    alCambiarAlpha: (Boolean) -> Unit,
     alGuardar: (Calculo) -> Unit
 ) {
-    val resultadoEnVivo = evaluar(expresion, respuesta)
+    val resultadoEnVivo = evaluar(expresion, respuesta, memoria, preAns)
     Column(Modifier.fillMaxSize().padding(horizontal = 10.dp, vertical = 18.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text("NORM   MATH   DECI", fontSize = 12.sp, color = Color.LightGray, modifier = Modifier.weight(1f))
+            if (shift) Text("S", color = Color(0xFF27200E), fontSize = 12.sp, modifier = Modifier.background(Ambar, RoundedCornerShape(4.dp)).padding(horizontal = 6.dp))
+            if (alpha) Text("A", color = Color.White, fontSize = 12.sp, modifier = Modifier.background(Morado, RoundedCornerShape(4.dp)).padding(horizontal = 6.dp))
+            Spacer(Modifier.width(8.dp))
             Text("CalcES", fontWeight = FontWeight.Bold, color = Ambar)
         }
         Spacer(Modifier.height(7.dp))
@@ -153,7 +185,8 @@ private fun PantallaCalculadora(
             Text("∑", fontSize = 28.sp)
             Text("⚙", fontSize = 27.sp)
             Text("±", fontSize = 24.sp)
-            Text("DEG", modifier = Modifier.background(Tecla, RoundedCornerShape(6.dp)).padding(horizontal = 7.dp, vertical = 4.dp))
+            Text(if (shift) "SHIFT" else if (alpha) "ALPHA" else "DEG", color = if (shift) Color(0xFF27200E) else Color.White,
+                modifier = Modifier.background(if (shift) Ambar else if (alpha) Morado else Tecla, RoundedCornerShape(6.dp)).padding(horizontal = 7.dp, vertical = 4.dp))
         }
         Spacer(Modifier.height(6.dp))
         val filas = if (tecladoCompleto) teclasCompletas() else teclasCompactas()
@@ -161,16 +194,34 @@ private fun PantallaCalculadora(
             filas.forEach { fila ->
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.fillMaxWidth().weight(1f)) {
                     fila.forEach { etiqueta ->
-                        BotonCalculadora(etiqueta, Modifier.weight(1f).fillMaxHeight()) {
-                            when (etiqueta) {
-                                "AC" -> alCambiarExpresion("")
-                                "⌫" -> alCambiarExpresion(expresion.dropLast(1))
-                                "=" -> if (!resultadoEnVivo.tieneError && expresion.isNotBlank()) {
-                                    alCambiarRespuesta(resultadoEnVivo.valor)
-                                    alGuardar(Calculo(expresion, resultadoEnVivo.texto))
-                                    alCambiarExpresion(resultadoEnVivo.texto)
+                        BotonCalculadora(etiqueta, leyendasShift[etiqueta], leyendasAlpha[etiqueta], Modifier.weight(1f).fillMaxHeight()) {
+                            when (val accion = accionEspecial(etiqueta, shift, alpha)) {
+                                ":SHIFT" -> { alCambiarShift(!shift); alCambiarAlpha(false) }
+                                ":ALPHA" -> { alCambiarAlpha(!alpha); alCambiarShift(false) }
+                                ":AC" -> { alCambiarExpresion(""); alCambiarShift(false); alCambiarAlpha(false) }
+                                ":BORRAR" -> { alCambiarExpresion(expresion.dropLast(1)); alCambiarShift(false); alCambiarAlpha(false) }
+                                ":IGUAL" -> {
+                                    if (!resultadoEnVivo.tieneError && expresion.isNotBlank()) {
+                                        alCambiarPreAns(respuesta)
+                                        alCambiarRespuesta(resultadoEnVivo.valor)
+                                        alGuardar(Calculo(expresion, resultadoEnVivo.texto))
+                                        alCambiarExpresion(resultadoEnVivo.texto)
+                                    }
+                                    alCambiarShift(false)
+                                    alCambiarAlpha(false)
                                 }
-                                else -> alCambiarExpresion(expresion + textoTecla(etiqueta))
+                                ":M+" -> { alCambiarMemoria(memoria + resultadoEnVivo.valor); alCambiarShift(false); alCambiarAlpha(false) }
+                                ":M-" -> { alCambiarMemoria(memoria - resultadoEnVivo.valor); alCambiarShift(false); alCambiarAlpha(false) }
+                                ":STO" -> { alCambiarMemoria(resultadoEnVivo.valor); alCambiarShift(false); alCambiarAlpha(false) }
+                                ":RCL" -> { alCambiarExpresion(expresion + textoNumero(memoria)); alCambiarShift(false); alCambiarAlpha(false) }
+                                ":LIMPIAR" -> { alCambiarExpresion(""); alCambiarShift(false); alCambiarAlpha(false) }
+                                ":HISTORIAL", ":MENU" -> { alAbrirMenu(); alCambiarShift(false); alCambiarAlpha(false) }
+                                else -> {
+                                    val insertar = accion ?: textoTecla(etiqueta)
+                                    if (insertar.isNotEmpty()) alCambiarExpresion(expresion + insertar)
+                                    alCambiarShift(false)
+                                    alCambiarAlpha(false)
+                                }
                             }
                         }
                     }
@@ -181,24 +232,29 @@ private fun PantallaCalculadora(
 }
 
 @Composable
-private fun BotonCalculadora(etiqueta: String, modifier: Modifier, alPulsar: () -> Unit) {
-    val especial = etiqueta in setOf("SHIFT", "ALPHA", "AC", "⌫")
+private fun BotonCalculadora(etiqueta: String, leyendaShift: String?, leyendaAlpha: String?, modifier: Modifier, alPulsar: () -> Unit) {
     val color = when (etiqueta) { "SHIFT" -> Ambar; "ALPHA" -> Morado; "AC", "⌫" -> Naranja; else -> Tecla }
-    Button(
-        onClick = alPulsar,
-        modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = color, contentColor = if (especial && etiqueta == "SHIFT") Color(0xFF27200E) else Color.White),
-        contentPadding = PaddingValues(1.dp)
-    ) { Text(etiqueta, fontSize = if (etiqueta.length > 4) 13.sp else 21.sp, maxLines = 1) }
+    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(leyendaShift.orEmpty(), color = Ambar, fontSize = 9.sp, maxLines = 1)
+            Text(leyendaAlpha.orEmpty(), color = Morado, fontSize = 9.sp, maxLines = 1)
+        }
+        Button(
+            onClick = alPulsar,
+            modifier = Modifier.fillMaxWidth().weight(1f),
+            shape = RoundedCornerShape(8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = color, contentColor = if (etiqueta == "SHIFT") Color(0xFF27200E) else Color.White),
+            contentPadding = PaddingValues(1.dp)
+        ) { Text(etiqueta, fontSize = if (etiqueta.length > 4) 13.sp else 21.sp, maxLines = 1) }
+    }
 }
 
 private fun teclasCompletas() = listOf(
-    listOf("SHIFT", "ALPHA", "◀", "▶", "MODE"),
-    listOf("CALC", "∫dx", "▲", "▼", "x⁻¹"),
-    listOf("x/y", "√", "x²", "xʸ", "Log"),
-    listOf("(-)", "hyp", "Sin", "Cos", "Tan"),
-    listOf("RCL", "ENG", "(", ")", "S⇔D"),
+    listOf("SHIFT", "ALPHA", "◀", "▶", "MODE", "2nd"),
+    listOf("CALC", "∫dx", "▲", "▼", "x⁻¹", "Logₓy"),
+    listOf("x/y", "√x", "x²", "xʸ", "Log", "Ln"),
+    listOf("(-)", "°' \"", "hyp", "Sin", "Cos", "Tan"),
+    listOf("RCL", "ENG", "(", ")", "S⇔D", "M+"),
     listOf("7", "8", "9", "⌫", "AC"),
     listOf("4", "5", "6", "×", "÷"),
     listOf("1", "2", "3", "+", "−"),
@@ -206,18 +262,70 @@ private fun teclasCompletas() = listOf(
 )
 
 private fun teclasCompactas() = listOf(
-    listOf("√", "x²", "(", ")", "⌫"),
+    listOf("√x", "x²", "(", ")", "⌫"),
     listOf("7", "8", "9", "÷", "AC"),
     listOf("4", "5", "6", "×", "−"),
     listOf("1", "2", "3", "+", "="),
     listOf("0", ".", "Ans", "xʸ", "Sin")
 )
 
+private val leyendasShift = mapOf(
+    "CALC" to "SOLVE", "∫dx" to "d/dx", "▲" to "x!", "▼" to "Σ",
+    "x/y" to "x/y", "√x" to "³√x", "x²" to "x³", "xʸ" to "ʸ√x", "Log" to "10ˣ", "Ln" to "eˣ",
+    "(-)" to "STO", "°' \"" to "i", "hyp" to "%", "Sin" to "\"", "Cos" to "x/y", "Tan" to "M-",
+    "RCL" to "CONST", "ENG" to "SI", ")" to "∞", "M+" to "",
+    "7" to "MATRIX", "8" to "VECTOR", "9" to "FUNC", "⌫" to "nPr", "AC" to "CLR ALL",
+    "4" to "STAT", "5" to "CMPLX", "6" to "DISTR", "×" to "Pol", "÷" to "Rec",
+    "1" to "COPY", "2" to "Ran#", "3" to "π", "−" to "History"
+)
+
+private val leyendasAlpha = mapOf(
+    "CALC" to "=", "▼" to "∏", "x/y" to "÷R", "√x" to "mod", "Ln" to "t",
+    "(-)" to "CLRv", "°' \"" to "Cot", "hyp" to "Cot⁻¹", "Sin" to "x", "Cos" to "y", "Tan" to "m",
+    "RCL" to "CONV", "ENG" to "Limit",
+    "9" to "HELP", "⌫" to "GCD", "AC" to "LCM", "×" to "Ceil", "÷" to "Floor",
+    "1" to "PASTE", "2" to "RanInt", "3" to "e", "+" to "PreAns"
+)
+
+private val insercionesShift = mapOf(
+    "▲" to "!", "x/y" to "/", "√x" to "cbrt(", "x²" to "^3", "xʸ" to "root(",
+    "Log" to "10^(", "Ln" to "e^(", "(-)" to ":STO", "hyp" to "%", "Cos" to "/", "Tan" to ":M-",
+    "⌫" to ":BORRAR", "AC" to ":AC", "×" to "pol(", "÷" to "rec(", "2" to "rand(", "3" to "pi",
+    "−" to ":HISTORIAL"
+)
+
+private val insercionesAlpha = mapOf(
+    "x/y" to "mod", "√x" to "mod", "(-)" to ":LIMPIAR", "°' \"" to "cot(", "hyp" to "acot(",
+    "Tan" to "m", "⌫" to "gcd(", "AC" to "lcm(", "×" to "ceil(", "÷" to "floor(",
+    "2" to "randint(", "3" to "e", "+" to "preans"
+)
+
+private fun accionEspecial(etiqueta: String, shift: Boolean, alpha: Boolean): String? {
+    if (etiqueta == "SHIFT") return ":SHIFT"
+    if (etiqueta == "ALPHA") return ":ALPHA"
+    val mapeada = when {
+        shift -> insercionesShift[etiqueta]
+        alpha -> insercionesAlpha[etiqueta]
+        else -> null
+    }
+    if (!mapeada.isNullOrEmpty()) return mapeada
+    return when (etiqueta) {
+        "AC" -> ":AC"
+        "⌫" -> ":BORRAR"
+        "=" -> ":IGUAL"
+        "RCL" -> ":RCL"
+        "M+" -> ":M+"
+        "MODE", "2nd" -> ":MENU"
+        else -> null
+    }
+}
+
 private fun textoTecla(etiqueta: String): String = when (etiqueta) {
-    "×" -> "*"; "÷" -> "/"; "−" -> "-"; "√" -> "sqrt("; "x²" -> "^2"; "xʸ" -> "^"
-    "x⁻¹" -> "^-1"; "Log" -> "log("; "Sin" -> "sin("; "Cos" -> "cos("; "Tan" -> "tan("
-    "(-)" -> "-"; "Ans", "RCL" -> "ans"; "Exp", "ENG" -> "E"; "hyp" -> ""; "S⇔D" -> ""
-    "SHIFT", "ALPHA", "◀", "▶", "MODE", "CALC", "∫dx", "▲", "▼", "x/y" -> ""
+    "×" -> "*"; "÷" -> "/"; "−" -> "-"; "√x", "√" -> "sqrt("; "x²" -> "^2"; "xʸ" -> "^"
+    "x⁻¹" -> "^-1"; "Log", "Logₓy" -> "log("; "Ln" -> "ln("
+    "Sin" -> "sin("; "Cos" -> "cos("; "Tan" -> "tan("
+    "(-)" -> "-"; "Ans" -> "ans"; "Exp", "ENG" -> "E"; "x/y" -> "/"
+    "hyp", "S⇔D", "RCL", "M+", "CALC", "∫dx", "◀", "▶", "MODE", "2nd", "°' \"" -> ""
     else -> etiqueta
 }
 
@@ -383,13 +491,12 @@ private fun FilaConfiguracion(titulo: String, descripcion: String, contenidoFina
 
 private data class Evaluacion(val valor: Double, val texto: String, val tieneError: Boolean)
 
-private fun evaluar(expresion: String, respuesta: Double): Evaluacion {
+private fun evaluar(expresion: String, respuesta: Double, memoria: Double, preAns: Double): Evaluacion {
     if (expresion.isBlank()) return Evaluacion(0.0, "0", false)
     return try {
-        val valor = AnalizadorExpresiones(expresion, respuesta).analizar()
-        if (!valor.isFinite()) throw IllegalArgumentException()
-        Evaluacion(valor, textoNumero(valor), false)
-    } catch (_: Exception) { Evaluacion(0.0, "—", true) }
+        val valor = AnalizadorExpresiones(expresion, respuesta, memoria, preAns).analizar()
+        if (valor.isFinite()) Evaluacion(valor, textoNumero(valor), false) else Evaluacion(0.0, "", true)
+    } catch (_: Exception) { Evaluacion(0.0, "", true) }
 }
 
 private fun textoNumero(valor: Double): String {
@@ -397,27 +504,125 @@ private fun textoNumero(valor: Double): String {
     return DecimalFormat("0.##########").format(valor).replace(',', '.')
 }
 
-private class AnalizadorExpresiones(entrada: String, private val respuesta: Double) {
-    private val fuente = entrada.replace("×", "*").replace("÷", "/").replace("−", "-").replace("Ans", "ans").replace(" ", "")
+private class AnalizadorExpresiones(entrada: String, private val respuesta: Double, private val memoria: Double, private val preAns: Double) {
+    private val fuente = entrada.replace("×", "*").replace("÷", "/").replace("−", "-").replace("Ans", "ans").replace("π", "pi").replace(" ", "")
     private var indice = 0
-    fun analizar(): Double { val valor = expresion(); if (indice != fuente.length) error("expresión no válida"); return valor }
-    private fun expresion(): Double { var valor = termino(); while (true) { valor = when { aceptar('+') -> valor + termino(); aceptar('-') -> valor - termino(); else -> return valor } } }
-    private fun termino(): Double { var valor = potencia(); while (true) { valor = when { aceptar('*') -> valor * potencia(); aceptar('/') -> valor / potencia(); else -> return valor } } }
-    private fun potencia(): Double { var valor = unario(); if (aceptar('^')) valor = valor.pow(potencia()); return valor }
-    private fun unario(): Double = when { aceptar('+') -> unario(); aceptar('-') -> -unario(); else -> primario() }
-    private fun primario(): Double {
-        if (aceptar('(')) { val valor = expresion(); if (!aceptar(')')) error("paréntesis"); return valor }
-        if (indice >= fuente.length) error("fin de la expresión")
-        if (fuente[indice].isDigit() || fuente[indice] == '.') return numero()
-        val nombre = buildString { while (indice < fuente.length && fuente[indice].isLetter()) append(fuente[indice++]) }
-        if (nombre.isEmpty()) error("símbolo no válido")
-        if (nombre == "ans") return respuesta
-        if (nombre == "pi") return PI
-        if (nombre == "e") return E
-        if (!aceptar('(')) error("función incompleta")
-        val valor = expresion(); if (!aceptar(')')) error("función incompleta")
-        return when (nombre.lowercase()) { "sin" -> sin(Math.toRadians(valor)); "cos" -> cos(Math.toRadians(valor)); "tan" -> tan(Math.toRadians(valor)); "asin" -> Math.toDegrees(asin(valor)); "acos" -> Math.toDegrees(acos(valor)); "atan" -> Math.toDegrees(atan(valor)); "sqrt" -> sqrt(valor); "log" -> log10(valor); "ln" -> ln(valor); else -> error("función no reconocida") }
+    private var profundidad = 0
+
+    fun analizar(): Double {
+        val valor = expresion()
+        if (indice != fuente.length) error("expresión no válida")
+        return valor
     }
+
+    private fun expresion(): Double {
+        var valor = termino()
+        while (true) valor = when {
+            aceptar('+') -> valor + termino()
+            aceptar('-') -> valor - termino()
+            else -> return valor
+        }
+    }
+
+    private fun termino(): Double {
+        var valor = potencia()
+        while (true) valor = when {
+            aceptar('*') -> valor * potencia()
+            aceptar('/') -> valor / potencia()
+            palabra("mod") -> modulo(valor, potencia())
+            else -> return valor
+        }
+    }
+
+    private fun potencia(): Double {
+        var valor = unario()
+        if (aceptar('^')) valor = valor.pow(potencia())
+        return valor
+    }
+
+    private fun unario(): Double = when {
+        aceptar('+') -> unario()
+        aceptar('-') -> -unario()
+        else -> posfijo()
+    }
+
+    private fun posfijo(): Double {
+        var valor = primario()
+        while (indice < fuente.length) valor = when (fuente[indice]) {
+            '!' -> { indice++; factorial(valor) }
+            '%' -> { indice++; valor / 100.0 }
+            else -> return valor
+        }
+        return valor
+    }
+
+    private fun primario(): Double {
+        if (profundidad >= 200) error("expresión demasiado profunda")
+        profundidad++
+        try {
+            if (aceptar('(')) { val valor = expresion(); if (!aceptar(')')) error("paréntesis"); return valor }
+            if (indice >= fuente.length) error("fin de la expresión")
+            if (fuente[indice].isDigit() || fuente[indice] == '.') return numero()
+            val nombre = buildString { while (indice < fuente.length && fuente[indice].isLetter()) append(fuente[indice++]) }.lowercase()
+            if (nombre.isEmpty()) error("símbolo no válido")
+            when (nombre) { "ans" -> return respuesta; "preans" -> return preAns; "m" -> return memoria; "pi" -> return PI; "e" -> return E }
+            if (!aceptar('(')) error("función incompleta")
+            val argumentos = mutableListOf<Double>()
+            if (!aceptar(')')) {
+                argumentos.add(expresion())
+                while (aceptar(',')) argumentos.add(expresion())
+                if (!aceptar(')')) error("función incompleta")
+            }
+            return aplicarFuncion(nombre, argumentos)
+        } finally { profundidad-- }
+    }
+
+    private fun aplicarFuncion(nombre: String, a: List<Double>): Double = when (nombre) {
+        "sin" -> sin(Math.toRadians(a[0])); "cos" -> cos(Math.toRadians(a[0])); "tan" -> tan(Math.toRadians(a[0]))
+        "asin" -> Math.toDegrees(asin(a[0])); "acos" -> Math.toDegrees(acos(a[0])); "atan" -> Math.toDegrees(atan(a[0]))
+        "sinh" -> sinh(a[0]); "cosh" -> cosh(a[0]); "tanh" -> tanh(a[0])
+        "sqrt" -> sqrt(a[0]); "cbrt" -> Math.cbrt(a[0])
+        "root" -> if (a.size >= 2) a[1].pow(1.0 / a[0]) else Math.cbrt(a[0])
+        "log" -> log10(a[0]); "ln" -> ln(a[0]); "exp" -> exp(a[0])
+        "cot" -> 1.0 / tan(Math.toRadians(a[0])); "acot" -> Math.toDegrees(atan(1.0 / a[0]))
+        "abs" -> abs(a[0]); "ceil" -> ceil(a[0]); "floor" -> floor(a[0]); "round" -> round(a[0])
+        "hypot", "pol" -> hypot(a[0], a[1])
+        "rec" -> a[0] * cos(Math.toRadians(a[1]))
+        "gcd" -> mcd(a[0], a[1])
+        "lcm" -> abs(a[0] * a[1]) / mcd(a[0], a[1])
+        "rand" -> if (a.isEmpty()) Random.nextDouble() else Random.nextDouble() * a[0]
+        "randint" -> {
+            val inicio = ceil(a[0]).toInt(); val fin = floor(a[1]).toInt()
+            if (fin < inicio) error("rango no válido")
+            (inicio + Random.nextInt(fin - inicio + 1)).toDouble()
+        }
+        else -> error("función no reconocida")
+    }
+
+    private fun factorial(n: Double): Double {
+        if (n < 0 || n != floor(n) || n > 170) error("factorial no válido")
+        var resultado = 1.0
+        var i = 2.0
+        while (i <= n) { resultado *= i; i += 1.0 }
+        return resultado
+    }
+
+    private fun mcd(x: Double, y: Double): Double {
+        var a = abs(x.toLong()); var b = abs(y.toLong())
+        while (b != 0L) { val t = b; b = a % b; a = t }
+        return a.toDouble()
+    }
+
+    private fun palabra(token: String): Boolean {
+        if (fuente.startsWith(token, indice)) { indice += token.length; return true }
+        return false
+    }
+
+    private fun modulo(a: Double, b: Double): Double {
+        val resto = a % b
+        return if (resto != 0.0 && (resto < 0) != (b < 0)) resto + b else resto
+    }
+
     private fun numero(): Double {
         val inicio = indice
         while (indice < fuente.length && (fuente[indice].isDigit() || fuente[indice] == '.')) indice++
