@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -58,6 +59,7 @@ import kotlin.math.acos
 import kotlin.math.asin
 import kotlin.math.atan
 import kotlin.math.ceil
+import kotlin.math.cbrt
 import kotlin.math.cos
 import kotlin.math.ln
 import kotlin.math.log10
@@ -107,39 +109,45 @@ fun AplicacionCalcEs() {
     var tecladoCompleto by remember { mutableStateOf(true) }
 
     MaterialTheme(colorScheme = darkColorScheme(background = Tinta, surface = Panel, primary = Ambar)) {
-        Box(Modifier.fillMaxSize().background(Tinta)) {
-            when (destino) {
-                Destino.CALCULADORA -> PantallaCalculadora(
-                    expresion = expresion,
-                    respuesta = respuesta,
-                    memoria = memoria,
-                    preAns = preAns,
-                    shift = shift,
-                    alpha = alpha,
-                    tecladoCompleto = tecladoCompleto,
-                    alAbrirMenu = { menuAbierto = true },
-                    alCambiarExpresion = { expresion = it },
-                    alCambiarRespuesta = { respuesta = it },
-                    alCambiarMemoria = { memoria = it },
-                    alCambiarPreAns = { preAns = it },
-                    alCambiarShift = { shift = it },
-                    alCambiarAlpha = { alpha = it },
-                    alGuardar = { calculo -> historial = listOf(calculo) + historial }
-                )
-                Destino.MATEMATICAS -> PantallaFormulas("Fórmulas matemáticas", gruposFormulasMatematicas()) { menuAbierto = true }
-                Destino.FISICA -> PantallaFormulas("Fórmulas de física", gruposFormulasFisica()) { menuAbierto = true }
-                Destino.CONVERSOR -> PantallaConversor { menuAbierto = true }
-                Destino.HISTORIAL -> PantallaHistorial(historial) { menuAbierto = true }
-                Destino.CONFIGURACION -> PantallaConfiguracion(tecladoCompleto, { tecladoCompleto = it }) { menuAbierto = true }
-            }
-            if (menuAbierto) {
-                MenuNavegacion(
-                    destinoActual = destino,
-                    alSeleccionarDestino = { destino = it; menuAbierto = false },
-                    alCerrar = { menuAbierto = false },
-                    tecladoCompleto = tecladoCompleto,
-                    alCambiarTeclado = { tecladoCompleto = it }
-                )
+        // Surface fija el color del contenido (blanco): sin ella, los Text sin color salen negros sobre fondo oscuro.
+        Surface(color = Tinta, contentColor = Color.White, modifier = Modifier.fillMaxSize()) {
+            Box(Modifier.fillMaxSize()) {
+                // safeDrawingPadding: evita que el contenido quede bajo la barra de estado/navegación (edge-to-edge).
+                Box(Modifier.fillMaxSize().safeDrawingPadding()) {
+                    when (destino) {
+                        Destino.CALCULADORA -> PantallaCalculadora(
+                            expresion = expresion,
+                            respuesta = respuesta,
+                            memoria = memoria,
+                            preAns = preAns,
+                            shift = shift,
+                            alpha = alpha,
+                            tecladoCompleto = tecladoCompleto,
+                            alAbrirMenu = { menuAbierto = true },
+                            alCambiarExpresion = { expresion = it },
+                            alCambiarRespuesta = { respuesta = it },
+                            alCambiarMemoria = { memoria = it },
+                            alCambiarPreAns = { preAns = it },
+                            alCambiarShift = { shift = it },
+                            alCambiarAlpha = { alpha = it },
+                            alGuardar = { calculo -> historial = listOf(calculo) + historial }
+                        )
+                        Destino.MATEMATICAS -> PantallaFormulas("Fórmulas matemáticas", gruposFormulasMatematicas()) { menuAbierto = true }
+                        Destino.FISICA -> PantallaFormulas("Fórmulas de física", gruposFormulasFisica()) { menuAbierto = true }
+                        Destino.CONVERSOR -> PantallaConversor { menuAbierto = true }
+                        Destino.HISTORIAL -> PantallaHistorial(historial) { menuAbierto = true }
+                        Destino.CONFIGURACION -> PantallaConfiguracion(tecladoCompleto, { tecladoCompleto = it }) { menuAbierto = true }
+                    }
+                }
+                if (menuAbierto) {
+                    MenuNavegacion(
+                        destinoActual = destino,
+                        alSeleccionarDestino = { destino = it; menuAbierto = false },
+                        alCerrar = { menuAbierto = false },
+                        tecladoCompleto = tecladoCompleto,
+                        alCambiarTeclado = { tecladoCompleto = it }
+                    )
+                }
             }
         }
     }
@@ -174,7 +182,7 @@ private fun PantallaCalculadora(
         }
         Spacer(Modifier.height(7.dp))
         Surface(color = Pantalla, shape = RoundedCornerShape(10.dp), modifier = Modifier.fillMaxWidth().height(150.dp)) {
-            Column(Modifier.padding(14.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.SpaceBetween) {
+            Column(Modifier.fillMaxSize().padding(14.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.SpaceBetween) {
                 Text(expresion.ifBlank { "0" }, color = Color(0xFF33383B), fontSize = 25.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
                 Text(resultadoEnVivo.texto, color = if (resultadoEnVivo.tieneError) MaterialTheme.colorScheme.error else Color(0xFF101719), fontSize = 36.sp, fontWeight = FontWeight.Medium, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
@@ -421,13 +429,18 @@ private fun PantallaConversor(alAbrirMenu: () -> Unit) {
     var destino by remember { mutableStateOf("Kilómetro") }
     val unidades = conversores.getValue(categoria)
     val numero = cantidad.replace(',', '.').toDoubleOrNull()
-    val resultado = numero?.let { it * unidades.getValue(origen) / unidades.getValue(destino) }
+    val resultado = numero?.let { it / unidades.getValue(origen) * unidades.getValue(destino) }
 
     Column(Modifier.fillMaxSize()) {
         EncabezadoSeccion("Conversor de unidades", alAbrirMenu)
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text("Conversores de unidades", style = MaterialTheme.typography.titleLarge, color = Ambar)
-            Selector(categoria, conversores.keys.toList()) { valor -> categoria = valor; origen = conversores.getValue(valor).keys.first(); destino = conversores.getValue(valor).keys.drop(1).firstOrNull() ?: origen }
+            Selector(categoria, conversores.keys.toList()) { valor ->
+                val nombres = conversores.getValue(valor).keys.toList()
+                categoria = valor
+                origen = nombres.first()
+                destino = nombres.getOrElse(1) { nombres.first() }
+            }
             OutlinedTextField(value = cantidad, onValueChange = { cantidad = it }, label = { Text("Cantidad") }, singleLine = true, modifier = Modifier.fillMaxWidth())
             Text("Desde", color = Color.LightGray)
             Selector(origen, unidades.keys.toList()) { origen = it }
@@ -525,25 +538,29 @@ private class AnalizadorExpresiones(entrada: String, private val respuesta: Doub
     }
 
     private fun termino(): Double {
-        var valor = potencia()
+        var valor = unario()
         while (true) valor = when {
-            aceptar('*') -> valor * potencia()
-            aceptar('/') -> valor / potencia()
-            palabra("mod") -> modulo(valor, potencia())
+            aceptar('*') -> valor * unario()
+            aceptar('/') -> valor / unario()
+            aceptarModulo() -> modulo(valor, unario())
+            iniciaOperando() -> valor * unario() // multiplicación implícita: 2π, 3sin(30), 2(3)
             else -> return valor
         }
     }
 
-    private fun potencia(): Double {
-        var valor = unario()
-        if (aceptar('^')) valor = valor.pow(potencia())
-        return valor
-    }
+    private fun iniciaOperando(): Boolean =
+        indice < fuente.length && (fuente[indice] == '(' || fuente[indice] == '.' || fuente[indice].isLetterOrDigit())
 
+    // El menos unario tiene menor precedencia que ^, así -2^2 = -(2^2) = -4
     private fun unario(): Double = when {
         aceptar('+') -> unario()
         aceptar('-') -> -unario()
-        else -> posfijo()
+        else -> potencia()
+    }
+
+    private fun potencia(): Double {
+        val base = posfijo()
+        return if (aceptar('^')) base.pow(unario()) else base
     }
 
     private fun posfijo(): Double {
@@ -560,7 +577,7 @@ private class AnalizadorExpresiones(entrada: String, private val respuesta: Doub
         if (profundidad >= 200) error("expresión demasiado profunda")
         profundidad++
         try {
-            if (aceptar('(')) { val valor = expresion(); if (!aceptar(')')) error("paréntesis"); return valor }
+            if (aceptar('(')) { val valor = expresion(); cerrarParentesis(); return valor }
             if (indice >= fuente.length) error("fin de la expresión")
             if (fuente[indice].isDigit() || fuente[indice] == '.') return numero()
             val nombre = buildString { while (indice < fuente.length && fuente[indice].isLetter()) append(fuente[indice++]) }.lowercase()
@@ -571,7 +588,7 @@ private class AnalizadorExpresiones(entrada: String, private val respuesta: Doub
             if (!aceptar(')')) {
                 argumentos.add(expresion())
                 while (aceptar(',')) argumentos.add(expresion())
-                if (!aceptar(')')) error("función incompleta")
+                cerrarParentesis()
             }
             return aplicarFuncion(nombre, argumentos)
         } finally { profundidad-- }
@@ -581,8 +598,8 @@ private class AnalizadorExpresiones(entrada: String, private val respuesta: Doub
         "sin" -> sin(Math.toRadians(a[0])); "cos" -> cos(Math.toRadians(a[0])); "tan" -> tan(Math.toRadians(a[0]))
         "asin" -> Math.toDegrees(asin(a[0])); "acos" -> Math.toDegrees(acos(a[0])); "atan" -> Math.toDegrees(atan(a[0]))
         "sinh" -> sinh(a[0]); "cosh" -> cosh(a[0]); "tanh" -> tanh(a[0])
-        "sqrt" -> sqrt(a[0]); "cbrt" -> Math.cbrt(a[0])
-        "root" -> if (a.size >= 2) a[1].pow(1.0 / a[0]) else Math.cbrt(a[0])
+        "sqrt" -> sqrt(a[0]); "cbrt" -> cbrt(a[0])
+        "root" -> if (a.size >= 2) a[1].pow(1.0 / a[0]) else cbrt(a[0])
         "log" -> log10(a[0]); "ln" -> ln(a[0]); "exp" -> exp(a[0])
         "cot" -> 1.0 / tan(Math.toRadians(a[0])); "acot" -> Math.toDegrees(atan(1.0 / a[0]))
         "abs" -> abs(a[0]); "ceil" -> ceil(a[0]); "floor" -> floor(a[0]); "round" -> round(a[0])
@@ -613,8 +630,8 @@ private class AnalizadorExpresiones(entrada: String, private val respuesta: Doub
         return a.toDouble()
     }
 
-    private fun palabra(token: String): Boolean {
-        if (fuente.startsWith(token, indice)) { indice += token.length; return true }
+    private fun aceptarModulo(): Boolean {
+        if (fuente.startsWith("mod", indice)) { indice += "mod".length; return true }
         return false
     }
 
@@ -633,6 +650,9 @@ private class AnalizadorExpresiones(entrada: String, private val respuesta: Doub
         }
         return fuente.substring(inicio, indice).toDouble()
     }
+    // Al final de la entrada los paréntesis abiertos se cierran solos: "sin(30" se evalúa como "sin(30)", como en una calculadora real.
+    private fun cerrarParentesis() { if (!aceptar(')') && indice < fuente.length) error("paréntesis") }
+
     private fun aceptar(caracter: Char): Boolean = (indice < fuente.length && fuente[indice] == caracter).also { if (it) indice++ }
 }
 

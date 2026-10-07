@@ -1,6 +1,5 @@
 .qodo/
 .gitattributes
-.vscode/
 .sixth/
 venv/
 __pycache__/
@@ -10,3 +9,4 @@ __pycache__/
 .kombai/
 /HITTS_Poo/nbproject/private/
 /oracleJdk-26/
+!.vscode/settings.json
