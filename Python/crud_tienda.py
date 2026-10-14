@@ -39,13 +39,13 @@ CREATE TABLE IF NOT EXISTS pedidos (
 
 def conectar():
     con = sqlite3.connect(DB)
-    con.execute("PRAGMA foreign_keys = ON")  # SQLite las trae apagadas por defecto
+    con.execute("PRAGMA foreign_keys = ON")
     con.row_factory = sqlite3.Row
     return con
 
 def cargar_datos(con):
     if con.execute("SELECT COUNT(*) FROM categorias").fetchone()[0] > 0:
-        return  # ya hay datos
+        return
 
     categorias = [
         ("Electrónica", "Dispositivos y gadgets"), ("Hogar", "Artículos para la casa"),
@@ -242,17 +242,40 @@ CONSULTAS = [
 ]
 
 
+def imprimir_tabla(filas):
+
+    if not filas:
+        print("(sin registros)")
+        return
+
+    encabezados = list(filas[0].keys())
+    datos = [["" if valor is None else str(valor) for valor in fila] for fila in filas]
+    anchos = [
+        max(len(encabezado), *(len(fila[i]) for fila in datos))
+        for i, encabezado in enumerate(encabezados)
+    ]
+    separador = "+-" + "-+-".join("-" * ancho for ancho in anchos) + "-+"
+
+    print(separador)
+    print("| " + " | ".join(
+        encabezado.ljust(anchos[i]) for i, encabezado in enumerate(encabezados)
+    ) + " |")
+    print(separador)
+    for fila in datos:
+        print("| " + " | ".join(
+            valor.ljust(anchos[i]) for i, valor in enumerate(fila)
+        ) + " |")
+    print(separador)
+
+
 def ejecutar_consulta(con, numero):
     desc, sql = CONSULTAS[numero - 1]
     filas = con.execute(sql).fetchall()
     print(f"\n[{numero}] {desc}")
-    print("-" * 60)
     if not filas:
         print("(sin resultados)")
         return
-    print(" | ".join(filas[0].keys()))
-    for f in filas:
-        print(" | ".join(str(v) for v in tuple(f)))
+    imprimir_tabla(filas)
     print(f"({len(filas)} filas)")
 
 
@@ -273,18 +296,13 @@ def pedir_valores(tabla, actuales=None):
         pista = f" [{actuales[col]}]" if actuales else ""
         txt = input(f"  {col}{pista}: ").strip()
         if txt == "" and actuales:
-            continue  # al actualizar, Enter deja el valor igual
+            continue
         valores[col] = txt
     return valores
 
 
 def mostrar(filas):
-    if not filas:
-        print("(sin registros)")
-        return
-    print(" | ".join(filas[0].keys()))
-    for f in filas:
-        print(" | ".join(str(v) for v in tuple(f)))
+    imprimir_tabla(filas)
 
 
 def menu():
