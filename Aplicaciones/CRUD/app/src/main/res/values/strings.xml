@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">CRUD</string>
+    <string name="lista_contactos">Lista de contactos</string>
+    <string name="agregar_contacto">+</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido_paterno">Apellido paterno</string>
+    <string name="apellido_materno">Apellido materno</string>
+    <string name="ocupacion">Ocupación</string>
+    <string name="edad">Edad</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="editar">Editar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="usuario">Usuario</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="formato_nombre_completo">%1$s %2$s %3$s</string>
+    <string name="formato_ocupacion">Ocupación: %1$s</string>
+    <string name="formato_edad">Edad: %1$d</string>
+    <string name="formato_mensaje_eliminar">¿Deseas eliminar a %1$s?</string>
+    <string name="confirmacion">Confirmación</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
+    <string name="registro_eliminado">Registro eliminado</string>
+    <string name="registro_actualizado">Registro actualizado</string>
+    <string name="formato_nombre">Nombre: %1$s</string>
+    <string name="formato_apellido1">Apellido paterno: %1$s</string>
+    <string name="formato_apellido2">Apellido materno: %1$s</string>
+    <string name="salir">Salir</string>
+    <string name="mensaje_salir">¿Desea salir de la aplicación?</string>
+    <string name="registro_guardado">Registro guardado</string>
+    <string name="campos_requeridos">Complete los campos requeridos</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="credenciales_incorrectas">Credenciales incorrectas</string>
+</resources>
