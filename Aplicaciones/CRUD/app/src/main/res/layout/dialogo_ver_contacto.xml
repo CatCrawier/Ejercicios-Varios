@@ -35,10 +35,21 @@
         android:layout_height="wrap_content"
         android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/btnVerCerrar"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvVerCategoria"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/btnVerCerrar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:text="@string/cerrar" />
+        android:layout_gravity="end"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/cerrar"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_close" />
 </LinearLayout>

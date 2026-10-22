@@ -21,18 +21,52 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnAgregar"
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/swTemaOscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/agregar_contacto"
-            android:textSize="22sp" />
+            android:contentDescription="@string/cambiar_tema"
+            android:text="@string/tema_oscuro" />
+
+        <ImageButton
+            android:id="@+id/btnAgregar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/agregar_contacto_descripcion"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_add" />
     </LinearLayout>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/svBuscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:queryHint="@string/buscar_contactos" />
+
+    <GridLayout
+        android:id="@+id/contenedorCategorias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:useDefaultMargins="false" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnExportar"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/exportar_csv" />
 
     <ListView
         android:id="@+id/listViewContactos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1" />
 </LinearLayout>

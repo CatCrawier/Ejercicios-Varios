@@ -2,11 +2,15 @@
     <string name="app_name">CRUD</string>
     <string name="lista_contactos">Lista de contactos</string>
     <string name="agregar_contacto">+</string>
+    <string name="agregar_contacto_descripcion">Agregar contacto</string>
     <string name="nombre">Nombre</string>
     <string name="apellido_paterno">Apellido paterno</string>
     <string name="apellido_materno">Apellido materno</string>
     <string name="ocupacion">Ocupación</string>
     <string name="edad">Edad</string>
+    <string name="categoria">Categoría</string>
+    <string name="filtrar_por_categoria">Filtrar por categoría</string>
+    <string name="todas_las_categorias">Todas las categorías</string>
     <string name="guardar">Guardar</string>
     <string name="cancelar">Cancelar</string>
     <string name="editar">Editar</string>
@@ -19,6 +23,7 @@
     <string name="formato_nombre_completo">%1$s %2$s %3$s</string>
     <string name="formato_ocupacion">Ocupación: %1$s</string>
     <string name="formato_edad">Edad: %1$d</string>
+    <string name="formato_categoria">Categoría: %1$s</string>
     <string name="formato_mensaje_eliminar">¿Deseas eliminar a %1$s?</string>
     <string name="confirmacion">Confirmación</string>
     <string name="si">Sí</string>
@@ -34,4 +39,18 @@
     <string name="campos_requeridos">Complete los campos requeridos</string>
     <string name="bienvenido">Bienvenido</string>
     <string name="credenciales_incorrectas">Credenciales incorrectas</string>
+    <string name="buscar_contactos">Buscar por nombre o apellido</string>
+    <string name="exportar_csv">Exportar CSV</string>
+    <string name="exportacion_exitosa">Contactos exportados correctamente</string>
+    <string name="error_exportacion">No fue posible exportar los contactos</string>
+    <string name="deshacer">Deshacer</string>
+    <string name="contacto_eliminado">Se eliminó a %1$s</string>
+    <string name="tema_oscuro">Oscuro</string>
+    <string name="cambiar_tema">Cambiar entre modo claro y oscuro</string>
+    <string name="selecciona_categoria">Selecciona una categoría</string>
+    <string name="error_nombre">Ingresa un nombre de al menos 2 caracteres</string>
+    <string name="error_apellido">Ingresa un apellido de al menos 2 caracteres</string>
+    <string name="error_ocupacion">Ingresa una ocupación de al menos 2 caracteres</string>
+    <string name="error_edad">Ingresa una edad entre 1 y 120</string>
+    <string name="error_categoria">Selecciona una categoría</string>
 </resources>
