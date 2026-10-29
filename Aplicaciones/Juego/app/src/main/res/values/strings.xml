@@ -2,12 +2,15 @@
     <string name="app_name">Juego</string>
     <string name="tiempo_inicial">Tiempo: 30</string>
     <string name="puntos_iniciales">Puntos: 0</string>
+    <string name="nivel_inicial">Nivel: 1</string>
     <string name="tiempo_formato">Tiempo: %1$d</string>
     <string name="puntos_formato">Puntos: %1$d</string>
+    <string name="nivel_formato">Nivel: %1$d</string>
     <string name="mensaje_inicio">Pulsa Iniciar para jugar</string>
-    <string name="mensaje_final">¡Juego terminado!\nPuntuación final: %1$d</string>
+    <string name="mensaje_final">¡Juego terminado!\nPuntuación final: %1$d\nNivel alcanzado: %2$d</string>
     <string name="iniciar_juego">Iniciar juego</string>
     <string name="volver_a_jugar">Volver a jugar</string>
     <string name="jugando">Jugando…</string>
     <string name="descripcion_objetivo">Objetivo para tocar</string>
+    <string name="aviso_nivel_dos">¡Nivel 2! El objetivo ahora es más pequeño y se mueve más rápido.</string>
 </resources>

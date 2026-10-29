@@ -1,0 +1,5 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.TicTacToe" parent="Theme.Material3.DayNight.NoActionBar" />
+
+    <style name="Theme.TicTacToe" parent="Base.Theme.TicTacToe" />
+</resources>

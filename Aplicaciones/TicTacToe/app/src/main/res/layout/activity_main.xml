@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:padding="24dp"
+    tools:context=".MainActivity">
+
+    <TextView android:id="@+id/titleText" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="@string/titulo_juego" android:textAppearance="?attr/textAppearanceHeadlineMedium" android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView android:id="@+id/statusText" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" android:accessibilityLiveRegion="polite" android:textAppearance="?attr/textAppearanceTitleMedium"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/titleText" tools:text="Turno de X" />
+
+    <Spinner android:id="@+id/gameModeSpinner" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" android:contentDescription="@string/modo_juego" android:entries="@array/opciones_modo_juego" android:prompt="@string/modo_juego"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/statusText" />
+
+    <Spinner android:id="@+id/figureSpinner" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" android:contentDescription="@string/escoger_figura" android:entries="@array/opciones_figura" android:prompt="@string/escoger_figura"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/gameModeSpinner" />
+
+    <Spinner android:id="@+id/difficultySpinner" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" android:contentDescription="@string/dificultad" android:entries="@array/opciones_dificultad" android:prompt="@string/dificultad"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/figureSpinner" />
+
+    <GridLayout android:id="@+id/gameBoard" android:layout_width="270dp" android:layout_height="270dp" android:layout_marginTop="16dp"
+        android:alignmentMode="alignMargins" android:columnCount="3" android:rowCount="3"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/difficultySpinner">
+        <com.google.android.material.button.MaterialButton android:id="@+id/cell0" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="84dp" android:layout_height="84dp" android:layout_margin="3dp" android:contentDescription="@string/casilla_vacia" android:textSize="34sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/cell1" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="84dp" android:layout_height="84dp" android:layout_margin="3dp" android:contentDescription="@string/casilla_vacia" android:textSize="34sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/cell2" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="84dp" android:layout_height="84dp" android:layout_margin="3dp" android:contentDescription="@string/casilla_vacia" android:textSize="34sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/cell3" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="84dp" android:layout_height="84dp" android:layout_margin="3dp" android:contentDescription="@string/casilla_vacia" android:textSize="34sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/cell4" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="84dp" android:layout_height="84dp" android:layout_margin="3dp" android:contentDescription="@string/casilla_vacia" android:textSize="34sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/cell5" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="84dp" android:layout_height="84dp" android:layout_margin="3dp" android:contentDescription="@string/casilla_vacia" android:textSize="34sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/cell6" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="84dp" android:layout_height="84dp" android:layout_margin="3dp" android:contentDescription="@string/casilla_vacia" android:textSize="34sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/cell7" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="84dp" android:layout_height="84dp" android:layout_margin="3dp" android:contentDescription="@string/casilla_vacia" android:textSize="34sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/cell8" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="84dp" android:layout_height="84dp" android:layout_margin="3dp" android:contentDescription="@string/casilla_vacia" android:textSize="34sp" />
+    </GridLayout>
+
+    <com.google.android.material.button.MaterialButton android:id="@+id/restartButton" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginTop="24dp" android:text="@string/nueva_partida"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/gameBoard" />
+</androidx.constraintlayout.widget.ConstraintLayout>

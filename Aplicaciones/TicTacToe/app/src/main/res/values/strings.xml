@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Tres en Raya</string>
+    <string name="titulo_juego">Tres en raya</string>
+    <string name="turno_jugador">Turno de %1$s</string>
+    <string name="turno_inteligencia_artificial">Turno de la IA (%1$s)</string>
+    <string name="gana_jugador">&#161;Ganaste!</string>
+    <string name="gana_inteligencia_artificial">&#161;La IA gana!</string>
+    <string name="turno_jugador_uno">Turno del jugador 1 (%1$s)</string>
+    <string name="turno_jugador_dos">Turno del jugador 2 (%1$s)</string>
+    <string name="gana_jugador_uno">&#161;Gana el jugador 1!</string>
+    <string name="gana_jugador_dos">&#161;Gana el jugador 2!</string>
+    <string name="empate">&#161;Empate!</string>
+    <string name="nueva_partida">Nueva partida</string>
+    <string name="dificultad">Dificultad</string>
+    <string name="modo_juego">Modo de juego</string>
+    <string name="escoger_figura">Figura del jugador 1</string>
+    <string name="casilla_vacia">Casilla vac&#237;a</string>
+    <string name="casilla_marcada">Casilla marcada con %1$s</string>
+
+    <string-array name="opciones_dificultad">
+        <item>F&#225;cil</item>
+        <item>Medio</item>
+        <item>Dif&#237;cil</item>
+    </string-array>
+
+    <string-array name="opciones_modo_juego">
+        <item>Contra la IA</item>
+        <item>Dos jugadores</item>
+    </string-array>
+
+    <string-array name="opciones_figura">
+        <item>Jugador 1: X</item>
+        <item>Jugador 1: O</item>
+    </string-array>
+</resources>
