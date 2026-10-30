@@ -2,6 +2,7 @@
 .gitattributes
 .sixth/
 venv/
+.venv/
 __pycache__/
 *.json
 **/config.js
@@ -10,3 +11,4 @@ __pycache__/
 /HITTS_Poo/nbproject/private/
 /oracleJdk-26/
 !.vscode/settings.json
+oracleJdk-27/
